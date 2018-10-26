@@ -11,12 +11,16 @@
     "stop": "nodemon stop",
     "test": "jest",
     "dev": "nodemon src/bin/www.js",
-    "lint": "eslint --fix src && prettier --write \"src/**/*.js\"",
-    "precommit": "lint-staged"
+    "lint": "eslint --fix src && prettier --write \"src/**/*.js\""
   },
   "dependencies": {
     "koa": "^2.6.1",
     "koa-router": "^7.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*/.js": [
