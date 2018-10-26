@@ -1,14 +1,22 @@
 {
+    "parser": "babel-eslint",
     "env": {
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "prettier",
+        "eslint:recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {
+        "no-nested-ternary": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/export": "off",
         "indent": [
             "error",
             "tab"

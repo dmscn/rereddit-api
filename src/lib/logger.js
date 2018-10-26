@@ -1,6 +1,6 @@
-import { Bristol } from 'bristol';
-import palin from 'palin';
+import { Bristol } from "bristol";
+import palin from "palin";
 
-const logger = new Bristol()
+const logger = new Bristol();
 logger.addTarget("console").withFormatter(palin);
 export default logger;

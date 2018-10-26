@@ -25,10 +25,13 @@
     }
   },
   "lint-staged": {
-    "*/.js": [
+    "**/*.js": [
       "eslint --fix",
       "prettier --write",
       "git add"
+    ],
+    "ignore": [
+      "/dist/"
     ]
   },
   "nodemonConfig": {
@@ -67,6 +70,7 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
+    "eslint-config-prettier": "^3.1.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
