@@ -1,3 +1,8 @@
-const helloWorld = "hello world";
+import { Bristol } from 'bristol';
+import palin from 'palin';
 
-export default helloWorld;
+const log = new Bristol();
+
+log.addTarget('console').withFormatter(palin);
+
+log.info("We're up and running");

@@ -14,8 +14,10 @@
     "lint": "eslint --fix src && prettier --write \"src/**/*.js\""
   },
   "dependencies": {
+    "bristol": "^0.4.0",
     "koa": "^2.6.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "palin": "^2.2.0"
   },
   "husky": {
     "hooks": {
