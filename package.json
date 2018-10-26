@@ -25,11 +25,13 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ],
+    "linters" :{
+      "*.js": [
+        "eslint --fix",
+        "prettier --write",
+        "git add"
+      ]
+    },
     "ignore": [
       "/dist/"
     ]
