@@ -1,0 +1,54 @@
+{
+  "name": "MKRN",
+  "version": "1.0.0",
+  "description": "MKRN Stack Application",
+  "repository": "git@github.com:dmscn/MKRN.git",
+  "author": "Leonardo Damasceno <leo.dsc@live.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node dist/bin/www.js",
+    "stop": "nodemon stop",
+    "test": "jest",
+    "dev": "nodemon src/bin/www.js",
+    "lint": "eslint --fix src && prettier --write \"src/**/*.js\"",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "koa": "^2.6.1",
+    "koa-router": "^7.4.0"
+  },
+  "lint-staged": {
+    "*/.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "testEnvironment": "node",
+    "collectCovarageFrom" : [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__",
+      "src/lib/env",
+      "src/bin"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.7.0",
+    "husky": "^1.1.2",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "nodemon": "^1.18.5",
+    "prettier": "^1.14.3"
+  }
+}
