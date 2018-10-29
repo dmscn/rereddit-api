@@ -8,12 +8,12 @@ export default class ContactService {
 	}
 
 	async getAll() {
-		return this.contactStore.getAll();
+		return await this.contactStore.getAll();
 	}
 
 	async getContact(id) {
 		assertId(id);
-		return this.contactStore.get(id);
+		return await this.contactStore.get(id);
 	}
 
 	async create(contact) {
@@ -21,12 +21,12 @@ export default class ContactService {
 		BadRequest.assert(contact.name, 'No contact name given');
 		BadRequest.assert(contact.phone, 'No contact phone given');
 		BadRequest.assert(contact.email, 'No contact email given');
-		return this.contactStore.add(contact);
+		return await this.contactStore.add(contact);
 	}
 
 	async remove(id) {
 		assertId(id);
-		this.contactStore = this.contactStore.filter(contact => contact.id !== id);
+		await this.contactStore.remove(id);
 		return this.contactStore;
 	}
 
@@ -36,6 +36,6 @@ export default class ContactService {
 		BadRequest.assert(contact.name, 'No contact name given');
 		BadRequest.assert(contact.phone, 'No contact phone given');
 		BadRequest.assert(contact.email, 'No contact email given');
-		return this.contactStore.update(id, contact);
+		return await this.contactStore.update(id, contact);
 	}
 }
