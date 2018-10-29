@@ -1,6 +1,8 @@
-import { Bristol } from "bristol";
-import palin from "palin";
+import { Bristol } from 'bristol';
+import palin from 'palin';
 
-const logger = new Bristol();
-logger.addTarget("console").withFormatter(palin);
-export default logger;
+export const logger = new Bristol();
+
+logger.addTarget('console').withFormatter(palin, {
+	rootFolderName: 'MKRN'
+});
