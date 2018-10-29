@@ -21,14 +21,14 @@ export async function createServer() {
 	const container = (app.container = configureContainer());
 
 	app
-		.use(errorHandler())
+		.use(errorHandler)
 		.use(compress())
 		.use(respond())
 		.use(cors())
 		.use(bodyParser())
 		.use(scopePerRequest(container))
 		.use(loadControllers('../routes/*.js', { cwd: __dirname }))
-		.use(notFound());
+		.use(notFound);
 
 	const server = http.createServer(app.callback());
 
