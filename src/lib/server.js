@@ -4,6 +4,8 @@ import bodyParser from 'koa-bodyparser';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 import { logger } from './logger';
 import { configureContainer } from './container';
+import { notFound } from '../middlewares/not-found';
+import { errorHandler } from '../middlewares/error-handler';
 
 /**
  * @returns {Promise<http.Server>} The configured App
@@ -16,9 +18,11 @@ export async function createServer() {
 	const container = (app.container = configureContainer());
 
 	app
+		.use(errorHandler())
 		.use(bodyParser())
 		.use(scopePerRequest(container))
-		.use(loadControllers('../routes/*.js', { cwd: __dirname }));
+		.use(loadControllers('../routes/*.js', { cwd: __dirname }))
+		.use(notFound());
 
 	const server = http.createServer(app.callback());
 
