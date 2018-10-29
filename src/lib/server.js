@@ -1,5 +1,8 @@
 import * as http from 'http';
 import Koa from 'koa';
+import cors from '@koa/cors';
+import respond from 'koa-respond';
+import compress from 'koa-compress';
 import bodyParser from 'koa-bodyparser';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 import { logger } from './logger';
@@ -19,6 +22,9 @@ export async function createServer() {
 
 	app
 		.use(errorHandler())
+		.use(compress())
+		.use(respond())
+		.use(cors())
 		.use(bodyParser())
 		.use(scopePerRequest(container))
 		.use(loadControllers('../routes/*.js', { cwd: __dirname }))

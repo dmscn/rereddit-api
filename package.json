@@ -15,10 +15,13 @@
     "typecheck": "flow check"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.2",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
     "bristol": "^0.4.0",
     "koa": "^2.6.1",
+    "koa-compress": "^3.0.0",
+    "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
     "palin": "^2.2.0"
   },
