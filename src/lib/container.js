@@ -2,8 +2,8 @@ import { Lifetime, InjectionMode, createContainer, asValue } from 'awilix';
 import { logger } from './logger';
 
 const modulesToLoad = [
-	['/services/*.js', Lifetime.SCOPED],
-	['/store/*.js', Lifetime.SINGLETON]
+	['services/*.js', Lifetime.SCOPED],
+	['stores/*.js', Lifetime.SINGLETON]
 ];
 
 /**

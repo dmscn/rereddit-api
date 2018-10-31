@@ -7,13 +7,13 @@ export default function createContactStore(logger) {
 			logger.debug('Getting all contacts');
 			return [...__contacts];
 		},
-		async getContact(id) {
+		async get(id) {
 			logger.debug(`Getting contact with id ${id}`);
-			return __contacts.find(contact => contact.id === id);
+			return __contacts.find(contact => contact.id == id);
 		},
-		async create(contact) {
+		async add(contact) {
 			contact.id = ++__ids;
-			logger.debug(`Creating contact with id ${__ids}`);
+			logger.debug(`Creating contact with id ${contact.id}`);
 			__contacts = [...__contacts, contact];
 			return __contacts;
 		},
