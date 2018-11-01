@@ -14,4 +14,5 @@ export default createController(api)
 	.get('', 'getAllContacts')
 	.get('/:id', 'getContactById')
 	.post('', 'createContact')
-	.put('/:id', 'updateContact');
+	.put('/:id', 'updateContact')
+	.delete('/:id', 'removeContact');
