@@ -15,12 +15,20 @@ export default function createContactStore(logger) {
 			contact.id = ++__ids;
 			logger.debug(`Creating contact with id ${contact.id}`);
 			__contacts = [...__contacts, contact];
-			return __contacts;
+			return contact;
 		},
 		async remove(id) {
 			logger.debug(`Removing contact with id ${id}`);
 			__contacts = __contacts.filter(contact => contact.id !== id);
 			return __contacts;
+		},
+		async update(id, contact) {
+			contact.id = id;
+			logger.debug(`Updating contact with id ${id}`);
+			let index = __contacts.findIndex(contact => contact.id == id);
+			if (index === -1) return null;
+			__contacts[index] = contact;
+			return __contacts[index];
 		}
 	};
 }

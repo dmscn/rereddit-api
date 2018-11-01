@@ -5845,6 +5845,11 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
+smid@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/smid/-/smid-0.1.1.tgz#5c6ffa401d1465de4066fbab0f2033237bec87bc"
+  integrity sha512-FbZiTVANlmyewdwN//9m5v/sSg1kdowcENnki58WGMH7kJBxSx1oAr19VV8GJpDK0AthjSE1EWEoGhF+3z5vLg==
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"

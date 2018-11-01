@@ -1,23 +1,23 @@
 import axios from 'axios';
-import { logger } from 'handlebars';
-import { createServer } from 'http';
+import { logger } from '../lib/logger';
+import { createServer } from '../lib/server';
 import { memoize } from 'lodash';
 
 export async function apiHelper() {
 	const server = await startServer();
-	const baseUrl = `http://localhost/${server.address().port}`;
+	const baseURL = `http://localhost:${server.address().port}`;
 	const client = axios.create({
-		baseUrl
+		baseURL
 	});
 
 	return {
 		catch: catchAndLog,
 		client,
-		getAllContacts: params => client.get('/contacts', { params }),
-		getContactById: id => client.get(`/contacts/${id}`),
-		createContact: data => client.post('/contacts', data),
-		removeContact: id => client.delete(`/contacts/${id}`),
-		updateContact: (id, data) => client.put(`/contact/${id}`, data)
+		getAllContacts: params => client.get('/contacts', { params }).then(assertStatus(200)),
+		getContactById: id => client.get(`/contacts/${id}`).then(assertStatus(200)),
+		createContact: data => client.post('/contacts', data).then(assertStatus(201)),
+		removeContact: id => client.delete(`/contacts/${id}`).then(assertStatus(204)),
+		updateContact: (id, data) => client.put(`/contact/${id}`, data).then(assertStatus(200))
 	};
 }
 
@@ -34,7 +34,7 @@ export function assertStatus(status) {
 	};
 }
 
-export function catchAndLog(err) {
+function catchAndLog(err) {
 	if (err.response) {
 		logger.error(
 			`Error ${err.response.status} in request: ${err.response.request.method} ${
