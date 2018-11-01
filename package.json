@@ -18,6 +18,7 @@
     "@koa/cors": "^2.2.2",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
+    "axios": "^0.18.0",
     "bristol": "^0.4.0",
     "fejl": "^1.0.2",
     "koa": "^2.6.1",
@@ -25,6 +26,7 @@
     "koa-compress": "^3.0.0",
     "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "palin": "^2.2.0"
   },
   "husky": {
@@ -70,6 +72,7 @@
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
