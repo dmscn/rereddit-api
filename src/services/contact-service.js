@@ -1,4 +1,4 @@
-import { BadRequest } from 'fejl';
+import { NotFound, BadRequest } from 'fejl';
 
 const assertId = BadRequest.makeAssert('No id given');
 
@@ -11,31 +11,28 @@ export default class ContactService {
 		return await this.contactStore.getAll();
 	}
 
-	async getContact(id) {
+	async get(id) {
 		assertId(id);
-		return await this.contactStore.get(id);
+		const contact = await this.contactStore.get(id);
+		return contact || NotFound.makeAssert(`Contact with id ${id} not found`);
 	}
 
 	async create(contact) {
 		BadRequest.assert(contact, 'No contact given');
 		BadRequest.assert(contact.name, 'No contact name given');
-		BadRequest.assert(contact.phone, 'No contact phone given');
 		BadRequest.assert(contact.email, 'No contact email given');
-		return await this.contactStore.add(contact);
+		BadRequest.assert(contact.phone, 'No contact phone given');
+		return await this.contactStore.create(contact);
 	}
 
 	async remove(id) {
 		assertId(id);
-		await this.contactStore.remove(id);
-		return this.contactStore;
+		return this.contactStore.remove(id);
 	}
 
 	async update(id, contact) {
 		assertId(id);
 		BadRequest.assert(contact, 'No contact given');
-		BadRequest.assert(contact.name, 'No contact name given');
-		BadRequest.assert(contact.phone, 'No contact phone given');
-		BadRequest.assert(contact.email, 'No contact email given');
 		return await this.contactStore.update(id, contact);
 	}
 }

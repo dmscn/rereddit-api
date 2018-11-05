@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node dist/bin/www.js",
     "test": "jest",
+    "test-watch": "yarn test --watch --notify",
     "build": "babel src/ -d dist/",
     "dev": "nodemon src/bin/www.js",
     "lint": "prettier --write \"src/**/*.js\" && eslint --fix src",
@@ -25,6 +26,7 @@
     "koa-compress": "^3.0.0",
     "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "palin": "^2.2.0"
   },
   "husky": {
@@ -37,6 +39,7 @@
       "**/*.js": [
         "prettier --write",
         "eslint --fix",
+        "yarn test",
         "git add"
       ]
     },
@@ -57,7 +60,7 @@
       "^.+\\.jsx?$": "babel-jest"
     },
     "testEnvironment": "node",
-    "collectCovarageFrom": [
+    "collectCoverageFrom": [
       "src/**/*.js"
     ],
     "coveragePathIgnorePatterns": [
@@ -70,6 +73,7 @@
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
@@ -88,6 +92,7 @@
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
     "nodemon": "^1.18.5",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "smid": "^0.1.1"
   }
 }
