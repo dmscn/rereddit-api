@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node dist/bin/www.js",
     "test": "jest",
-    "test-watch": "yarn test --watch --notify",
+    "test:live": "yarn test --watch --notify",
     "build": "babel src/ -d dist/",
     "dev": "nodemon src/bin/www.js",
     "lint": "prettier --write \"src/**/*.js\" && eslint --fix src",
