@@ -11,7 +11,7 @@ export default function createContactStore(logger) {
 			logger.debug(`Getting contact with id ${id}`);
 			return __contacts.find(contact => contact.id == id);
 		},
-		async add(contact) {
+		async create(contact) {
 			contact.id = ++__ids;
 			logger.debug(`Creating contact with id ${contact.id}`);
 			__contacts = [...__contacts, contact];
@@ -20,7 +20,7 @@ export default function createContactStore(logger) {
 		async remove(id) {
 			logger.debug(`Removing contact with id ${id}`);
 			__contacts = __contacts.filter(contact => contact.id !== id);
-			return __contacts;
+			return undefined;
 		},
 		async update(id, contact) {
 			contact.id = id;
