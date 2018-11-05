@@ -11,7 +11,7 @@ export default class ContactService {
 		return await this.contactStore.getAll();
 	}
 
-	async getContact(id) {
+	async get(id) {
 		assertId(id);
 		return await this.contactStore.get(id);
 	}
