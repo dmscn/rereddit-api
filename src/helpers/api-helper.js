@@ -12,12 +12,7 @@ export async function apiHelper() {
 
 	return {
 		catch: catchAndLog,
-		client,
-		getAllContacts: params => client.get('/contacts', { params }).then(assertStatus(200)),
-		getContactById: id => client.get(`/contacts/${id}`).then(assertStatus(200)),
-		createContact: data => client.post('/contacts', data).then(assertStatus(201)),
-		removeContact: id => client.delete(`/contacts/${id}`).then(assertStatus(204)),
-		updateContact: (id, data) => client.put(`/contacts/${id}`, data).then(assertStatus(200))
+		client
 	};
 }
 

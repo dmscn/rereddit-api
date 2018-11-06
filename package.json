@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node dist/bin/www.js",
     "test": "jest",
-    "test-watch": "yarn test --watch --notify",
+    "test:live": "yarn test --watch --notify",
     "build": "babel src/ -d dist/",
     "dev": "nodemon src/bin/www.js",
     "lint": "prettier --write \"src/**/*.js\" && eslint --fix src",
@@ -19,6 +19,7 @@
     "@koa/cors": "^2.2.2",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
+    "axios": "^0.18.0",
     "bristol": "^0.4.0",
     "fejl": "^1.0.2",
     "koa": "^2.6.1",
@@ -27,6 +28,7 @@
     "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
+    "mongoose": "^5.3.9",
     "palin": "^2.2.0"
   },
   "husky": {

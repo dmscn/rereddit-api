@@ -1,6 +1,13 @@
+import mongoose from 'mongoose';
 import { createServer } from '../lib/server';
 import { env } from '../lib/env';
 import { logger } from '../lib/logger';
+
+mongoose.connect(env.DATABASE);
+mongoose.connection.on('error', () => {
+	logger.error('Error connecting to MongoDB');
+	process.exit(1);
+});
 
 createServer().then(
 	app => {
