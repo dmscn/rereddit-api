@@ -1,5 +1,5 @@
 import { throws } from 'smid';
-import ContactService from '../contact-service';
+import ContactService from '../../services/contact-service';
 
 const contact = {
 	name: 'baz',
