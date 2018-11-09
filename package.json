@@ -22,9 +22,12 @@
     "axios": "^0.18.0",
     "bristol": "^0.4.0",
     "fejl": "^1.0.2",
+    "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.3",
     "koa": "^2.6.1",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
+    "koa-graphql": "^0.8.0",
     "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
@@ -41,12 +44,13 @@
       "**/*.js": [
         "prettier --write",
         "eslint --fix",
-        "yarn test",
+        "jest --bail --findRelatedTests",
         "git add"
       ]
     },
     "ignore": [
-      "/dist/"
+      "/dist/",
+      "/flow-typed/"
     ]
   },
   "nodemonConfig": {
@@ -54,28 +58,9 @@
       "js": "babel-node"
     }
   },
-  "jest": {
-    "testMatch": [
-      "**/__tests__/**/*.test.js"
-    ],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "__tests__",
-      "src/lib/env",
-      "src/bin"
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",

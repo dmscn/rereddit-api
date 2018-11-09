@@ -21,7 +21,9 @@
         "source-map-support"
       ],
       "ignore": [
-        "**/__tests__/**"
+        "**/__tests__/**", 
+        "**/__mocks__/**", 
+        "*.test"
       ]
     }
   }

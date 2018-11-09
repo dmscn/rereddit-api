@@ -4,11 +4,13 @@ import cors from '@koa/cors';
 import respond from 'koa-respond';
 import compress from 'koa-compress';
 import bodyParser from 'koa-bodyparser';
+// import graphqlHTTP from 'koa-graphql';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 import { logger } from './logger';
 import { configureContainer } from './container';
 import { notFound } from '../middlewares/not-found';
 import { errorHandler } from '../middlewares/error-handler';
+// import GraphQLSchema from '../graphql';
 
 /**
  * @returns {Promise<http.Server>} The configured App
@@ -27,6 +29,10 @@ export async function createServer() {
 		.use(cors())
 		.use(bodyParser())
 		.use(scopePerRequest(container))
+	// .use('../graphql/graphql.js', graphqlHTTP({
+	// 	schema: GraphQLSchema,
+	// 	graphiql: true,
+	// }))
 		.use(loadControllers('../routes/*.js', { cwd: __dirname }))
 		.use(notFound);
 
