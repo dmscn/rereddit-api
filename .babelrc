@@ -10,7 +10,7 @@
         }
       }
     ],
-    ["flow"]
+    "flow"
   ],
   "retainLines": true,
   "env": {
