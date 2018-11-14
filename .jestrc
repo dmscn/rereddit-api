@@ -1,0 +1,35 @@
+{
+	"testMatch": [
+		"**/__tests__/**/*.test.js"
+	],
+  "modulePathIgnorePatterns": [
+    "/lib/",
+    "/node_modules/",
+		"/flow-typed/"
+  ],
+  "persistModuleRegistryBetweenSpecs": true,
+  "preprocessorIgnorePatterns": [
+    "/node_modules/",
+		"/flow-typed/"
+
+  ],
+  "rootDir": "",
+  "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+  "testPathDirs": [
+    "<rootDir>/src/"
+  ],
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/src/"
+  ],
+	"collectCoverageFrom": [
+		"/src/**/*.js"
+	],
+	"coveragePathIgnorePatterns": [
+		"/node_modules/",
+		"/flow-typed/"
+		"/src/lib/env",
+		"/src/bin"
+		"**/__tests__/**",
+	]
+}
