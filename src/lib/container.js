@@ -1,3 +1,4 @@
+// @flow
 import { Lifetime, InjectionMode, createContainer, asValue } from 'awilix';
 import { logger } from './logger';
 

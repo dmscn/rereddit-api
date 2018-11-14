@@ -1,3 +1,4 @@
+// @flow
 import { logger } from '../lib/logger';
 
 export async function errorHandler(ctx, next) {

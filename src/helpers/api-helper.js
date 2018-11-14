@@ -1,3 +1,4 @@
+// @flow
 import axios from 'axios';
 import { logger } from '../lib/logger';
 import { createServer } from '../lib/server';
@@ -16,7 +17,7 @@ export async function apiHelper() {
 	};
 }
 
-export function assertStatus(status) {
+export function assertStatus(status: any) {
 	return async function statusAssert(resp) {
 		if (resp.status !== status) {
 			throw new Error(

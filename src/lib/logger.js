@@ -1,3 +1,4 @@
+// @flow
 import { Bristol } from 'bristol';
 import palin from 'palin';
 

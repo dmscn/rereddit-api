@@ -1,3 +1,4 @@
+// @flow
 import * as http from 'http';
 import Koa from 'koa';
 import cors from '@koa/cors';

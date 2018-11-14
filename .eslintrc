@@ -1,34 +1,23 @@
 {
-    "parser": "babel-eslint",
-    "env": {
-        "es6": true,
-        "node": true,
-        "jest": true
-    },
-    "extends": [
-        "prettier",
-        "eslint:recommended"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-nested-ternary": "off",
-        "import/no-extraneous-dependencies": "off",
-        "import/prefer-default-export": "off",
-        "import/export": "off",
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": ["prettier", "eslint:recommended", "plugin:flowtype/recommended"],
+  "plugins": ["flowtype"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-nested-ternary": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "import/export": "off",
+    "indent": ["error", "tab"],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"]
+  }
 }

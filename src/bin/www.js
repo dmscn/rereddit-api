@@ -1,3 +1,4 @@
+// @flow
 import mongoose from 'mongoose';
 import { createServer } from '../lib/server';
 import { env } from '../lib/env';

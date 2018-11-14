@@ -1,9 +1,6 @@
 {
   "sourceMaps": "both",
-  "plugins": [
-    "transform-runtime",
-    "transform-object-rest-spread",
-  ],
+  "plugins": ["transform-runtime", "transform-object-rest-spread"],
   "presets": [
     [
       "env",
@@ -15,16 +12,11 @@
     ],
     ["flow"]
   ],
+  "retainLines": true,
   "env": {
     "production": {
-      "plugins": [
-        "source-map-support"
-      ],
-      "ignore": [
-        "**/__tests__/**", 
-        "**/__mocks__/**", 
-        "*.test"
-      ]
+      "plugins": ["source-map-support"],
+      "ignore": ["**/__tests__/**", "**/__mocks__/**", "*.test"]
     }
   }
 }

@@ -1,3 +1,4 @@
+// @flow
 import { NotFound, BadRequest } from 'fejl';
 
 const assertId = BadRequest.makeAssert('No id given');

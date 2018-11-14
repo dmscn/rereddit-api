@@ -1,3 +1,4 @@
+// @flow
 import { createController } from 'awilix-koa';
 
 const api = contactService => ({

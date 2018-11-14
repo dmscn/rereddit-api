@@ -1,3 +1,4 @@
+// @flow
 import Contact from '../models/contact-model';
 
 export default function createContactStore(logger) {
