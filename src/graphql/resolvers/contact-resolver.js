@@ -1,22 +1,15 @@
-import { createController } from 'awilix-koa';
+import { buildSchema } from 'graphql';
 
-const resolvers = contactService => ({
-	Query: {
-		async getContacts() {
-			return await contactService.getAll();
-		},
-		async getContact(id) {
-			return await contactService.get(id);
-		}
-	},
-	Mutation: {
-		async createContact(contact) {
-			return await contactService.create(contact);
-		},
-		async updateContact(id, contact) {
-			return await contactService.update(id, contact);
-		}
-	}
-});
+export const schema = buildSchema(`
+	type Query {
+    contact(id: String!): Contact
+    contacts: [Contact]
+  },
 
-export default createController(resolvers);
+  type Contact {
+    id: String
+    name: String
+    email: String
+    phone: String
+  }
+`);

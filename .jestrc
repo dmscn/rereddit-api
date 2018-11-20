@@ -1,26 +1,28 @@
 {
 	"testMatch": [
-		"**/__tests__/**/*.test.js"
+		"**/__tests__/**/*.test.j{"
 	],
   "modulePathIgnorePatterns": [
     "/lib/",
     "/node_modules/",
-		"/flow-typed/"
+		"/flow-typed/",
+	"/dist"
   ],
   "persistModuleRegistryBetweenSpecs": true,
   "preprocessorIgnorePatterns": [
     "/node_modules/",
-		"/flow-typed/"
-
+		"/flow-typed/",
+	"/dist"
   ],
   "rootDir": "",
   "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
   "testPathDirs": [
     "<rootDir>/src/"
   ],
-  "unmockedModulePathPatterns": [
+  "unmockedModulePathPatterns": 
     "<rootDir>/node_modules/",
-    "<rootDir>/src/"
+    "<rootDir>/src/",
+	"<rootDir>/dist"
   ],
 	"collectCoverageFrom": [
 		"/src/**/*.js"
@@ -29,7 +31,8 @@
 		"/node_modules/",
 		"/flow-typed/"
 		"/src/lib/env",
-		"/src/bin"
+		"/src/bin",
 		"**/__tests__/**",
+		"/dist"
 	]
 }

@@ -42,9 +42,9 @@
   "lint-staged": {
     "linters": {
       "**/*.js": [
+        "jest --bail --findRelatedTests",
         "prettier --write",
         "eslint --fix",
-        "jest --bail --findRelatedTests",
         "git add"
       ]
     },
