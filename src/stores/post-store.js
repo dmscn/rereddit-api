@@ -1,26 +1,26 @@
-import Contact from '../models/contact-model';
+import Post from '../models/post-model';
 
 export default function createContactStore(logger) {
 	return {
 		async getAll() {
-			logger.debug('Getting all contacts');
-			return Contact.find();
+			logger.debug('Getting all posts');
+			return Post.find();
 		},
 		async get(id) {
-			logger.debug(`Getting contact with id ${id}`);
-			return Contact.findById(id);
+			logger.debug(`Getting post with id ${id}`);
+			return Post.findById(id);
 		},
-		async create(contact) {
-			logger.debug(`Creating contact with id ${contact.id}`);
-			return await new Contact(contact).save();
+		async create(post) {
+			logger.debug(`Creating post with id ${post.id}`);
+			return await new Post(post).save();
 		},
-		async update(id, contact) {
-			logger.debug(`Updating contact with id ${id}`);
-			return await Contact.findByIdAndUpdate(id, contact);
+		async update(id, post) {
+			logger.debug(`Updating post with id ${id}`);
+			return await Post.findByIdAndUpdate(id, post);
 		},
 		async remove(id) {
-			logger.debug(`Removing contact with id ${id}`);
-			return Contact.findByIdAndRemove(id);
+			logger.debug(`Removing post with id ${id}`);
+			return Post.findByIdAndRemove(id);
 		}
 	};
 }

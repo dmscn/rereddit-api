@@ -1,53 +1,56 @@
 import { throws } from 'smid';
-import ContactService from '../../services/contact-service';
+import PostService from '../../services/post-service';
 
-const contact = {
-	name: 'baz',
-	phone: '777777777',
-	email: 'baz@email.com'
+class User {
+	constructor(email) {
+		this.email = email;
+	}
+}
+
+const post = {
+	title: 'Baz',
+	content: 'Baz',
+	author: new User('Baz@email.com'),
+	date: new Date()
 };
 
-describe('ContactService', () => {
-	describe('getAll', () => {
-		it('should get all contacts', async () => {
-			const { service, contacts } = setup();
-			expect(await service.getAll()).toEqual(contacts);
+describe('PostService', () => {
+	describe('find', () => {
+		it('should findOneById all posts', async () => {
+			const { service, posts } = setup();
+			expect(await service.find()).toEqual(posts);
 		});
 	});
 
-	describe('get', () => {
+	describe('findOneById', () => {
 		it('should return not found', async () => {
 			const { service } = setup();
-			expect(await throws(await service.get('nonexistent')).message).toMatch(/not found/);
+			expect(await throws(await service.findOneById('nonexistent')).message).toMatch(
+				/not found/
+			);
 		});
 
-		it('should get contact by id', async () => {
-			const { service, contacts } = setup();
-			expect(await service.get(1)).toEqual(contacts[0]);
-			expect(await service.get(2)).toEqual(contacts[1]);
+		it('should findOneById post by id', async () => {
+			const { service, posts } = setup();
+			expect(await service.findOneById(1)).toEqual(posts[0]);
+			expect(await service.findOneById(2)).toEqual(posts[1]);
 		});
 	});
 
 	describe('create', () => {
 		it('should return bad request', async () => {
 			const { service } = setup();
-			expect((await throws(service.create())).message).toMatch(/No contact/);
-			expect((await throws(service.create({ name: 'baz' }))).message).toMatch(/email/);
+			expect((await throws(service.create())).message).toMatch(/Post inexistent/);
+			expect((await throws(service.create({ title: 'baz' }))).message).toMatch(/content/);
 			expect(
-				(await throws(service.create({ name: 'baz', email: 'baz@email.com' }))).message
-			).toMatch(/phone/);
-			expect(
-				(await throws(service.create({ phone: '777777777', email: 'baz@email.com' }))).message
-			).toMatch(/name/);
-			expect((await throws(service.create({ phone: '777777777' }))).message).toMatch(/name/);
-			expect((await throws(service.create({ email: 'baz@email.com' }))).message).toMatch(
-				/name/
-			);
+				(await throws(service.create({ title: 'baz', content: 'baz@email.com' }))).message
+			).toMatch(/author/);
+			// TODO: Complete expects
 		});
 
-		it('should create a new contact', async () => {
+		it('should create a new post', async () => {
 			const { service } = setup();
-			expect(await service.create(contact)).toMatchObject(contact);
+			expect(await service.create(post)).toMatchObject(post);
 		});
 	});
 
@@ -55,17 +58,17 @@ describe('ContactService', () => {
 		it('should return not found ', async () => {
 			const { service } = setup();
 			expect((await throws(service.update())).message).toMatch(/id/);
-			expect((await throws(service.update(null, contact))).message).toMatch(/id/);
+			expect((await throws(service.update(null, post))).message).toMatch(/id/);
 		});
 
 		it('should return bad request', async () => {
 			const { service } = setup();
-			expect((await throws(service.update(1))).message).toMatch(/contact/);
+			expect((await throws(service.update(1))).message).toMatch(/post/);
 		});
 
-		it('should update contact', async () => {
+		it('should update post', async () => {
 			const { service } = setup();
-			expect(await service.update(1, contact)).toMatchObject(contact);
+			expect(await service.update(1, post)).toMatchObject(post);
 		});
 	});
 
@@ -75,7 +78,7 @@ describe('ContactService', () => {
 			expect((await throws(service.remove())).message).toMatch(/id/);
 		});
 
-		it('should remove contact', async () => {
+		it('should remove post', async () => {
 			const { service } = setup();
 			expect(await service.remove(1)).toEqual(undefined);
 		});
@@ -83,19 +86,31 @@ describe('ContactService', () => {
 });
 
 function setup() {
-	const contacts = [
-		{ id: 1, name: 'Foo', phone: '999999999', email: 'foo@email.com' },
-		{ id: 2, name: 'Bar', phone: '888888888', email: 'bar@email.com' }
+	const posts = [
+		{
+			id: 1,
+			title: 'Foo',
+			content: '999999999',
+			author: new User('foo@email.com'),
+			date: new Date()
+		},
+		{
+			id: 2,
+			title: 'Bar',
+			content: '888888888',
+			author: new User('bar@email.com'),
+			date: new Date()
+		}
 	];
 
 	/* eslint-disable */
   const store = {
-    getAll: jest.fn(async () => [...contacts]),
-    get: jest.fn(async id => contacts.find(contact => contact.id === id)),
-    create: jest.fn(async contact => ({ ...contact, id: 3 })),
-    update: jest.fn(async (id, data) => ({ ...contact, ...data })),
+    find: jest.fn(async () => [...posts]),
+    findOneById: jest.fn(async id => posts.find(post => post.id === id)),
+    create: jest.fn(async post => ({ ...post, id: 3 })),
+    update: jest.fn(async (id, data) => ({ ...post, ...data })),
     remove: jest.fn(async id => undefined)
   };
   /* eslint-enable */
-	return { service: new ContactService(store), store, contacts };
+	return { service: new PostService(store), store, posts };
 }
