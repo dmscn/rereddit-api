@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 export const postSchema = Schema({
 	title: {
 		type: String,
-		required: true
+		required: false
 	},
 	content: {
 		type: String,
@@ -22,7 +22,7 @@ export const postSchema = Schema({
 		type: { type: Schema.Types.ObjectId, ref: 'Post' },
 		required: false
 	},
-	comments: {
+	replies: {
 		type: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 		required: false
 	}

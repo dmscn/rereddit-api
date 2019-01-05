@@ -19,9 +19,9 @@ export default class PostService {
 
 	async create(post) {
 		BadRequest.assert(post, 'Post inexistent');
-		BadRequest.assert(post.title, 'No post title');
-		BadRequest.assert(post.content, 'No post content');
-		BadRequest.assert(post.author, 'No post author');
+		BadRequest.assert(post.title, 'No title');
+		BadRequest.assert(post.content, 'No content');
+		BadRequest.assert(post.author, 'No author');
 		return await this.postStore.create(post);
 	}
 
@@ -34,5 +34,11 @@ export default class PostService {
 		assertId(id);
 		BadRequest.assert(post, 'No post given');
 		return await this.postStore.update(id, post);
+	}
+
+	async reply(reply) {
+		BadRequest.assert(reply, 'Reply Inexistent');
+		BadRequest.assert(reply.parentPost, 'No post reference specified');
+		BadRequest.assert(reply.content, 'No content');
 	}
 }

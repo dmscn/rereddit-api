@@ -21,6 +21,17 @@ export default function createPostStore(logger) {
 		async remove(id) {
 			logger.debug(`Removing post with id ${id}`);
 			return Post.findByIdAndRemove(id);
+		},
+		async reply(reply) {
+			logger.debug(`Replying post with id ${reply.parentPost} with reply ${reply._id}`);
+			try {
+				let parent = Post.findById(reply.idParent);
+				parent.replies.push(reply);
+				return Post.findByIdAndUpdate(parent._id, parent);
+			} catch (error) {
+				logger.error(`Couldn't get parent post ${reply.parentPost}`);
+				return false;
+			}
 		}
 	};
 }
