@@ -14,4 +14,5 @@ export default createController(api)
 	.get('/:id', 'findOneById')
 	.post('', 'create')
 	.put('/:id', 'update')
+	.put('/reply', 'reply')
 	.delete('/:id', 'remove');
