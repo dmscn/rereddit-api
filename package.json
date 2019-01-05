@@ -67,10 +67,11 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "__tests__",
-      "src/lib/env",
-      "src/bin",
-      "src/models"
+      "/__tests__/",
+      "/src/lib/env",
+      "/src/bin",
+      "/src/models",
+      "/dist/"
     ]
   },
   "devDependencies": {
