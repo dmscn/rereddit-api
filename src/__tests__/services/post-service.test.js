@@ -8,10 +8,12 @@ class User {
 }
 
 const post = {
+	_id: 5,
 	title: 'Baz',
 	content: 'Baz',
 	author: new User('Baz@email.com'),
-	date: new Date()
+	date: new Date(),
+	parentPost: null
 };
 
 describe('PostService', () => {
@@ -81,6 +83,38 @@ describe('PostService', () => {
 		it('should remove post', async () => {
 			const { service } = setup();
 			expect(await service.remove(1)).toEqual(undefined);
+		});
+	});
+
+	describe('reply', () => {
+		let reply = {};
+
+		it('should return bad request', async () => {
+			const { service } = setup();
+			expect((await throws(service.reply(reply))).message).toMatch(/post/);
+
+			reply.title = 'Foo';
+			expect((await throws(service.reply(reply))).message).toMatch(/reference/);
+
+			reply.parentPost = post._id;
+			expect((await throws(service.reply(reply))).message).toMatch(/content/);
+		});
+
+		it('should reply a post', async () => {
+			const { service } = setup();
+			expect(
+				await service.reply({
+					content: 'Foo',
+					parentPost: post._id
+				})
+			);
+
+			try {
+				const { replies } = await service.findOneById(post._id);
+				expect(replies).toContain(reply);
+			} catch (error) {
+				return false;
+			}
 		});
 	});
 });
