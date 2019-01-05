@@ -7,7 +7,7 @@
 
 ## Installation
 ```
-npm install
+yarn install
 ```
 
 to install the dependecies.
@@ -15,27 +15,27 @@ to install the dependecies.
 ## Usage
 
 ```
-npm build
+yarn build
 ```
 to build the dist folder with the code.
 
 ```
-npm start
+yarn start
 ```
 to start the project.
 
 ```
-npm dev
+yarn dev
 ```
 to run live in dev mode.
 
 ## Testing
 ```
-npm test
+yarn test
 ```
 to run all the tests.
 
 ```
-npm test:live
+yarn test:live
 ```
 to run tests live.
