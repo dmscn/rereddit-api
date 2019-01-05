@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 
 export const userSchema = Schema({

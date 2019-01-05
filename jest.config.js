@@ -2,6 +2,7 @@ const { defaults } = require('jest-config');
 
 module.exports = {
 	testMatch: ['**/__tests__/**/*.test.js'],
+	modulePathIgnorePatterns: ['<rootDir>/dist', '<rootDir>/node_modules/'],
 	transform: {
 		'^.+\\.jsx?$': 'babel-jest'
 	},
