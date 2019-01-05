@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 
 export const postSchema = Schema({
@@ -13,18 +12,18 @@ export const postSchema = Schema({
 		required: true
 	},
 	author: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+		type: { type: Schema.Types.ObjectId, ref: 'User' }
 	},
 	date: {
 		type: Date,
 		required: true
 	},
 	parentPost: {
-		type: { type: mongoose.Schema.Types.Post, ref: 'Post' },
+		type: { type: Schema.Types.ObjectId, ref: 'Post' },
 		required: false
 	},
 	comments: {
-		type: [{ type: mongoose.Schema.Types.Post, ref: 'Post' }],
+		type: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 		required: false
 	}
 });
