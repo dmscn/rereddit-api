@@ -13,16 +13,19 @@ export const postSchema = Schema({
 		required: true
 	},
 	author: {
-		type: User,
-		required: true
+		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 	},
 	date: {
 		type: Date,
 		required: true
 	},
 	parentPost: {
-		type: Post,
-		required: false	
+		type: { type: mongoose.Schema.Types.Post, ref: 'Post' },
+		required: false
+	},
+	comments: {
+		type: [{ type: mongoose.Schema.Types.Post, ref: 'Post' }],
+		required: false
 	}
 });
 

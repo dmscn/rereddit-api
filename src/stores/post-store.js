@@ -1,12 +1,12 @@
 import Post from '../models/post-model';
 
-export default function createContactStore(logger) {
+export default function createPostStore(logger) {
 	return {
-		async getAll() {
+		async find() {
 			logger.debug('Getting all posts');
 			return Post.find();
 		},
-		async get(id) {
+		async findOneById(id) {
 			logger.debug(`Getting post with id ${id}`);
 			return Post.findById(id);
 		},

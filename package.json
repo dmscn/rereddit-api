@@ -69,7 +69,8 @@
       "/node_modules/",
       "__tests__",
       "src/lib/env",
-      "src/bin"
+      "src/bin",
+      "src/models"
     ]
   },
   "devDependencies": {
