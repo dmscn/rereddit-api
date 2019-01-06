@@ -22,6 +22,7 @@ export default class PostService {
 		BadRequest.assert(post.title, 'No title');
 		BadRequest.assert(post.content, 'No content');
 		BadRequest.assert(post.author, 'No author');
+		post.date = new Date(); // Sets the current date
 		return await this.postStore.create(post);
 	}
 
@@ -40,5 +41,6 @@ export default class PostService {
 		BadRequest.assert(reply, 'Reply Inexistent');
 		BadRequest.assert(reply.parentPost, 'No post reference specified');
 		BadRequest.assert(reply.content, 'No content');
+		return await this.postStore.reply(reply);
 	}
 }
