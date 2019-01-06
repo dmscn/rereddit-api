@@ -1,14 +1,15 @@
 import Post from '../models/post-model';
+import Reply from '../models/reply-model';
 
 export default function createPostStore(logger) {
 	return {
 		async find() {
 			logger.debug('Getting all posts');
-			return Post.find();
+			return await Post.find();
 		},
 		async findOneById(id) {
 			logger.debug(`Getting post with id ${id}`);
-			return Post.findById(id);
+			return await Post.findById(id);
 		},
 		async create(post) {
 			logger.debug(`Creating post with id ${post.id}`);
@@ -16,21 +17,21 @@ export default function createPostStore(logger) {
 		},
 		async update(id, post) {
 			logger.debug(`Updating post with id ${id}`);
-			return await Post.findByIdAndUpdate(id, post);
+			return await Post.findByIdAndUpdate(id, post, { new: true });
 		},
 		async remove(id) {
 			logger.debug(`Removing post with id ${id}`);
 			return Post.findByIdAndRemove(id);
 		},
 		async reply(reply) {
-			logger.debug(`Replying post with id ${reply.parentPost} with reply ${reply._id}`);
+			logger.debug(`Replying post with id ${reply.parentPost}`);
 			try {
-				let parent = Post.findById(reply.idParent);
-				parent.replies.push(reply);
-				return Post.findByIdAndUpdate(parent._id, parent);
+				logger.debug(`Replying ${reply.parentPost} with ${reply}`);
+				let parentPost = await Post.findById(reply.parentPost);
+				parentPost._doc.replies.push(new Reply(reply));
+				return parentPost.save();
 			} catch (error) {
-				logger.error(`Couldn't get parent post ${reply.parentPost}`);
-				return false;
+				throw error;
 			}
 		}
 	};
