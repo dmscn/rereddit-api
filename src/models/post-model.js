@@ -12,7 +12,8 @@ export const postSchema = Schema({
 		required: true
 	},
 	author: {
-		type: { type: Schema.Types.ObjectId, ref: 'User' }
+		type: { type: Schema.Types.ObjectId, ref: 'User' },
+		required: false
 	},
 	date: {
 		type: Date,
