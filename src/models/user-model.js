@@ -13,7 +13,8 @@ export const userSchema = Schema({
 	},
 	points: {
 		type: Number,
-		required: false
+		required: false,
+		default: 0
 	},
 	avatar: {
 		type: String,
