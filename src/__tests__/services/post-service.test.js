@@ -8,10 +8,12 @@ class User {
 }
 
 const post = {
+	_id: 5,
 	title: 'Baz',
 	content: 'Baz',
 	author: new User('Baz@email.com'),
-	date: new Date()
+	date: new Date(),
+	parentPost: null
 };
 
 describe('PostService', () => {
@@ -83,6 +85,38 @@ describe('PostService', () => {
 			expect(await service.remove(1)).toEqual(undefined);
 		});
 	});
+
+	describe('reply', () => {
+		let reply = {};
+
+		it('should return bad request', async () => {
+			const { service } = setup();
+			expect((await throws(service.reply(reply))).message).toMatch(/post/);
+
+			reply.title = 'Foo';
+			expect((await throws(service.reply(reply))).message).toMatch(/reference/);
+
+			reply.parentPost = post._id;
+			expect((await throws(service.reply(reply))).message).toMatch(/content/);
+		});
+
+		it('should reply a post', async () => {
+			const { service, store } = setup();
+			await service.reply({
+				content: 'Foo',
+				parentPost: post._id
+			});
+
+			expect(store.reply).toHaveBeenCalled();
+
+			try {
+				const { replies } = await service.findOneById(post._id);
+				expect(replies).toContain(reply);
+			} catch (error) {
+				return false;
+			}
+		});
+	});
 });
 
 function setup() {
@@ -109,7 +143,8 @@ function setup() {
     findOneById: jest.fn(async id => posts.find(post => post.id === id)),
     create: jest.fn(async post => ({ ...post, id: 3 })),
     update: jest.fn(async (id, data) => ({ ...post, ...data })),
-    remove: jest.fn(async id => undefined)
+    remove: jest.fn(async id => undefined),
+    reply: jest.fn(async reply => ({ ...post, replies: [reply] }))
   };
   /* eslint-enable */
 	return { service: new PostService(store), store, posts };

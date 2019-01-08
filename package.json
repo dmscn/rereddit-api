@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "start": "node dist/bin/www.js",
-    "test": "jest",
+    "test": "jest --config ./jest.config.js",
     "test:live": "yarn test --watch --notify",
     "test:clear": "jest --clearCache",
     "build": "babel src/ -d dist/",
@@ -34,7 +34,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn test"
     }
   },
   "lint-staged": {
@@ -42,7 +42,6 @@
       "**/*.js": [
         "prettier --write",
         "eslint --fix",
-        "yarn test",
         "git add"
       ]
     },
