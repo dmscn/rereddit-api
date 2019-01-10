@@ -70,6 +70,7 @@
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "flow": "^0.2.3",
     "flow-bin": "^0.84.0",
     "husky": "^1.1.2",
