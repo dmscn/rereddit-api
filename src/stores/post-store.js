@@ -1,5 +1,4 @@
 import Post from '../models/post-model';
-import Reply from '../models/reply-model';
 
 export default function createPostStore(logger) {
 	return {
@@ -28,7 +27,7 @@ export default function createPostStore(logger) {
 			try {
 				logger.debug(`Replying ${reply.parentPost} with ${reply}`);
 				let parentPost = await Post.findById(reply.parentPost);
-				parentPost._doc.replies.push(new Reply(reply));
+				parentPost._doc.replies.push(new Post(reply));
 				return parentPost.save();
 			} catch (error) {
 				throw error;

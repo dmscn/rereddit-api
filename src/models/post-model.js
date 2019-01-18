@@ -20,7 +20,7 @@ export const postSchema = Schema({
 		default: Date.now
 	},
 	replies: {
-		type: [{ type: Schema.Types.ObjectId, ref: 'Reply' }],
+		type: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 		required: false
 	}
 });
