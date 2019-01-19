@@ -19,6 +19,10 @@ export const postSchema = Schema({
 		type: Date,
 		default: Date.now
 	},
+	parent: {
+		type: { type: Schema.Types.ObjectId, ref: 'Post' },
+		required: false
+	},
 	replies: {
 		type: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 		required: false
