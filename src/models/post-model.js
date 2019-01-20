@@ -12,16 +12,14 @@ export const postSchema = new Schema({
     required: true
   },
   author: {
-    type: { type: Schema.Types.ObjectId, ref: 'User' },
-    required: false
+    type: { type: Schema.Types.ObjectId, ref: 'User' }
   },
   date: {
     type: Date,
     default: Date.now
   },
   parent: {
-    type: { type: Schema.Types.ObjectId, ref: 'Post' },
-    required: false
+    type: String
   },
   replies: {
     type: [this],

@@ -30,7 +30,7 @@ export default function createPostStore(logger) {
         parentPost._doc.replies.push(
           new Post({
             ...reply,
-            parent: parentPost._doc // FIXME: fix parent ref
+            parent: parentPost._doc._id
           })
         );
         return parentPost.save();
