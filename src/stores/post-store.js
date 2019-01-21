@@ -25,14 +25,15 @@ export default function createPostStore(logger) {
     async reply(reply) {
       logger.debug(`Replying post with id ${reply.parent}`);
       try {
-        logger.debug(`Replying ${reply.parent} with ${JSON.stringify(reply, null, 2)}`);
+        logger.debug(`Replying ${reply.parent} with \n ${JSON.stringify(reply, null, 2)} \n`);
         let parentPost = await Post.findById(reply.parent);
-        parentPost._doc.replies.push(
-          new Post({
-            ...reply,
-            parent: parentPost._doc._id
-          })
-        );
+        const replyPost = new Post(reply);
+        try {
+          await replyPost.save();
+          parentPost.replies.push(replyPost);
+        } catch (err) {
+          return new Error("Couldn't create reply", err);
+        }
         return parentPost.save();
       } catch (error) {
         throw error;

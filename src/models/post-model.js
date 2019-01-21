@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
-export const postSchema = new Schema({
+export const PostSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -27,4 +27,4 @@ export const postSchema = new Schema({
   }
 });
 
-export default mongoose.model('Post', postSchema);
+export default mongoose.model('Post', PostSchema);
