@@ -2,9 +2,14 @@ import Post from '../models/post-model';
 
 export default function createPostStore(logger) {
   return {
-    async find() {
-      logger.debug('Getting all posts');
-      return await Post.find();
+    async find(offset = 0, limit = 20) {
+      logger.debug('Getting all the posts');
+      return await Post.find({ parent: null })
+        .skip(offset)
+        .limit(limit)
+        .sort({
+          date: 'asc'
+        });
     },
     async findOneById(id) {
       logger.debug(`Getting post with id ${id}`);

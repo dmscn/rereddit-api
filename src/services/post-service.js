@@ -37,10 +37,10 @@ export default class PostService {
     return await this.postStore.update(id, post);
   }
 
-  async reply(reply) {
+  async reply(reply, offset, limit) {
     BadRequest.assert(reply, 'Reply Inexistent');
     BadRequest.assert(reply.parent, 'No post reference specified');
     BadRequest.assert(reply.content, 'No content');
-    return await this.postStore.reply(reply);
+    return await this.postStore.reply(reply, offset, limit);
   }
 }
