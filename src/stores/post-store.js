@@ -6,7 +6,10 @@ export default function createPostStore(logger) {
       logger.debug('Getting all the posts');
       return await Post.find({ parent: null })
         .skip(offset)
-        .limit(limit);
+        .limit(limit)
+        .sort({
+          date: 'asc'
+        });
     },
     async findOneById(id) {
       logger.debug(`Getting post with id ${id}`);
