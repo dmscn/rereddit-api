@@ -3,8 +3,8 @@ import Post from '../models/post-model';
 export default function createPostStore(logger) {
   return {
     async find() {
-      logger.debug('Getting all posts');
-      return await Post.find();
+      logger.debug('Getting all the posts');
+      return await Post.find({ parent: null });
     },
     async findOneById(id) {
       logger.debug(`Getting post with id ${id}`);
