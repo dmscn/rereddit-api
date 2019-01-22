@@ -14,5 +14,14 @@
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"]
   },
-  "plugins": ["typescript"]
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "no-unused-vars": ["warn"],
+        "no-undef": ["warn"]
+      }
+    }
+  ],
+  "plugins": ["@typescript-eslint"]
 }

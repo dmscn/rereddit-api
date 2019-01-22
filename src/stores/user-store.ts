@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import UserSchema, { User } from '../models/user-model';
 
 export default class UserStore {

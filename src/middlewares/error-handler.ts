@@ -1,5 +1,7 @@
 import { logger } from '../lib/logger';
+// eslint-disable-next-line no-unused-vars
 import { Context } from 'koa';
+// eslint-disable-next-line no-unused-vars
 import { NextFunction } from 'express';
 
 export async function errorHandler(ctx: Context, next: NextFunction) {

@@ -16,7 +16,7 @@ import { errorHandler } from '../middlewares/error-handler';
 export async function createServer() {
   logger.debug('Creating Server...');
 
-  const app = new Koa();
+  const app: any = new Koa();
 
   const container = (app.container = configureContainer());
 
@@ -27,7 +27,7 @@ export async function createServer() {
     .use(cors())
     .use(bodyParser())
     .use(scopePerRequest(container))
-    .use(loadControllers('../routes/*.js', { cwd: __dirname }))
+    .use(loadControllers('../routes/*.ts', { cwd: __dirname }))
     .use(notFound);
 
   const server = http.createServer(app.callback());

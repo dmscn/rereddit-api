@@ -1,5 +1,8 @@
 import { NotFound, BadRequest } from 'fejl';
-import { UserStore } from '../stores/user-store';
+// eslint-disable-next-line no-unused-vars
+import UserStore from '../stores/user-store';
+// eslint-disable-next-line no-unused-vars
+import { User } from '../models/user-model';
 
 const assertId = BadRequest.makeAssert('No id given');
 
@@ -14,13 +17,13 @@ export default class UserService {
     return await this.userStore.find();
   }
 
-  async findOneById(id) {
+  async findOneById(id: string) {
     assertId(id);
     const user = await this.userStore.findOneById(id);
     return user || NotFound.makeAssert(`User with id ${id} not found`);
   }
 
-  async create(user) {
+  async create(user: User) {
     BadRequest.assert(user, 'User inexistent');
     BadRequest.assert(user.name, 'No title');
     BadRequest.assert(user.email, 'No content');
@@ -30,12 +33,12 @@ export default class UserService {
     return await this.userStore.create(user);
   }
 
-  async remove(id) {
+  async remove(id: string) {
     assertId(id);
     return this.userStore.remove(id);
   }
 
-  async update(id, user) {
+  async update(id: string, user: User) {
     assertId(id);
     BadRequest.assert(user, 'No user given');
     return await this.userStore.update(id, user);

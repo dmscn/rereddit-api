@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import PostSchema, { Post } from '../models/post-model';
 
 export default class PostStore {
@@ -7,11 +8,11 @@ export default class PostStore {
     this.logger = logger;
   }
 
-  async find(offset = 0, limit = 20) {
+  async find(options = { offset: 0, limit: 20 }) {
     this.logger.debug('Getting all the posts');
     return await PostSchema.find({ parent: null })
-      .skip(offset)
-      .limit(limit)
+      .skip(options.offset)
+      .limit(options.limit)
       .sort({
         date: 'asc'
       });
@@ -23,7 +24,7 @@ export default class PostStore {
   }
 
   async create(post: Post) {
-    this.logger.debug(`Creating post with id ${post.id}`);
+    this.logger.debug(`Creating post with id ${post._id}`);
     return await new PostSchema(post).save();
   }
 

@@ -189,7 +189,15 @@
   dependencies:
     "@types/superagent" "*"
 
-"@typescript-eslint/parser@^1.0.0":
+"@typescript-eslint/eslint-plugin@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-1.0.0.tgz#2002ea6c8edd554c85121efb5a1f7e51ddcd8874"
+  integrity sha512-+6zsL/AmfYImE58p8wSd9ChQe9Uga9IWoVmRzKdJLgQ9Kr/jmt+nCYVST6mpYdnr/x4Jb9QKUOhJug/1/uvDwg==
+  dependencies:
+    "@typescript-eslint/parser" "1.0.0"
+    requireindex "^1.2.0"
+
+"@typescript-eslint/parser@1.0.0", "@typescript-eslint/parser@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-1.0.0.tgz#a370c967d0443e6ef5b09c81c64dd04189dcd1ce"
   integrity sha512-fidBOcV1HgX315cwHF9abJfzwpjNyTex3FCUMj9W7/L6NueDTY5AcEvHg1cjC9INIRwiMR3WdkzwbG2wh9EJpA==
@@ -4609,6 +4617,11 @@ require_optional@^1.0.1:
   dependencies:
     resolve-from "^2.0.0"
     semver "^5.1.0"
+
+requireindex@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

@@ -3,11 +3,12 @@ import mongoose, { Schema } from 'mongoose';
 mongoose.Promise = global.Promise;
 
 export type User = {
-  id: String;
-  name: String;
+  _id?: String;
+  name?: String;
   email: String;
-  points: Number;
-  avatar: String;
+  points?: Number;
+  avatar?: String;
+  date?: Date;
 };
 
 export const UserSchema = Schema({

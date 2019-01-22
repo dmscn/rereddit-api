@@ -1,12 +1,13 @@
-import axios from 'axios';
+// eslint-disable-next-line no-unused-vars
+import axios, { AxiosInstance } from 'axios';
 import { logger } from '../lib/logger';
 import { createServer } from '../lib/server';
 import { memoize } from 'lodash';
 
 export async function apiHelper() {
-  const server = await startServer();
-  const baseURL = `http://localhost:${server.address().port}`;
-  const client = axios.create({
+  const server: any = await startServer();
+  const baseURL: string = `http://localhost:${server.address().port}`;
+  const client: AxiosInstance = axios.create({
     baseURL
   });
 

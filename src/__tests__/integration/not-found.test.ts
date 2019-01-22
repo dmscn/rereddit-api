@@ -6,6 +6,6 @@ describe('nonexisting routes', () => {
     const { client } = await apiHelper();
     const { response } = await throws(client.get('/nonexisting'));
     expect(response.status).toBe(404);
-    expect(response.data.message).toMatch(/GET \/nonexisting/);
+    expect(response.data.message).toMatch(/GET:\/nonexisting/);
   });
 });

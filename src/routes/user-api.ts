@@ -1,4 +1,5 @@
 import { createController } from 'awilix-koa';
+// eslint-disable-next-line no-unused-vars
 import { Context } from 'koa';
 
 const api = userService => ({

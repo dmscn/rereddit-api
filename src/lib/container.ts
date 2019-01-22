@@ -1,16 +1,17 @@
+// eslint-disable-next-line no-unused-vars
 import { Lifetime, InjectionMode, createContainer, asValue, AwilixContainer } from 'awilix';
 import { logger } from './logger';
 
-const modulesToLoad = [
-  ['services/*.js', Lifetime.SCOPED],
-  ['stores/*.js', Lifetime.SINGLETON]
+const modulesToLoad: any = [
+  ['services/*.ts', Lifetime.SCOPED],
+  ['stores/*.ts', Lifetime.SINGLETON]
 ];
 
 /**
  * @returns {AwilixContainer} The container
  */
 export function configureContainer(): AwilixContainer {
-  const options = {
+  const options: any = {
     injectionMode: InjectionMode.CLASSIC
   };
   return createContainer(options)
