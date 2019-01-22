@@ -1,6 +1,8 @@
 import { logger } from '../lib/logger';
+import { Context } from 'koa';
+import { NextFunction } from 'express';
 
-export async function errorHandler(ctx, next) {
+export async function errorHandler(ctx: Context, next: NextFunction) {
   try {
     await next();
   } catch (err) {

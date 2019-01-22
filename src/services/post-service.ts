@@ -1,9 +1,12 @@
 import { NotFound, BadRequest } from 'fejl';
+import { PostStore } from '../stores/post-store';
 
 const assertId = BadRequest.makeAssert('No id given');
 
 export default class PostService {
-  constructor(postStore) {
+  postStore: PostStore;
+
+  constructor(postStore: PostStore) {
     this.postStore = postStore;
   }
 

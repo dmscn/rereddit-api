@@ -1,9 +1,12 @@
 import { NotFound, BadRequest } from 'fejl';
+import { UserStore } from '../stores/user-store';
 
 const assertId = BadRequest.makeAssert('No id given');
 
 export default class UserService {
-  constructor(userStore) {
+  userStore: UserStore;
+
+  constructor(userStore: UserStore) {
     this.userStore = userStore;
   }
 

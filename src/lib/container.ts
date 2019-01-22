@@ -1,4 +1,4 @@
-import { Lifetime, InjectionMode, createContainer, asValue } from 'awilix';
+import { Lifetime, InjectionMode, createContainer, asValue, AwilixContainer } from 'awilix';
 import { logger } from './logger';
 
 const modulesToLoad = [
@@ -7,9 +7,9 @@ const modulesToLoad = [
 ];
 
 /**
- * @returns {Object} The container
+ * @returns {AwilixContainer} The container
  */
-export function configureContainer() {
+export function configureContainer(): AwilixContainer {
   const options = {
     injectionMode: InjectionMode.CLASSIC
   };

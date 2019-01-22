@@ -4,5 +4,5 @@ import palin from 'palin';
 export const logger = new Bristol();
 
 logger.addTarget('console').withFormatter(palin, {
-  rootFolderName: 'MKRN'
+  rootFolderName: 'forum-api'
 });

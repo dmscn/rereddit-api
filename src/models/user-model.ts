@@ -2,6 +2,14 @@ import mongoose, { Schema } from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
+export type User = {
+  id: String;
+  name: String;
+  email: String;
+  points: Number;
+  avatar: String;
+};
+
 export const UserSchema = Schema({
   name: {
     type: String,

@@ -1,6 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
+import { User } from './user-model';
 
 mongoose.Promise = global.Promise;
+
+export type Post = {
+  id: String;
+  title: String;
+  content: String;
+  author: User;
+  date: Date;
+  parent: Post;
+  replies: [Post];
+};
 
 export const PostSchema = new Schema({
   title: {
@@ -22,6 +33,7 @@ export const PostSchema = new Schema({
     type: String
   },
   replies: {
+    // @ts-ignore
     type: [this],
     required: false
   }

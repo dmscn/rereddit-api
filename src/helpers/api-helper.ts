@@ -16,8 +16,8 @@ export async function apiHelper() {
   };
 }
 
-export function assertStatus(status) {
-  return async function statusAssert(resp) {
+export function assertStatus(status: any) {
+  return async function statusAssert(resp: any) {
     if (resp.status !== status) {
       throw new Error(
         `Expected status ${status} but got status ${resp.status}: ${resp.request.method} ${
@@ -29,7 +29,7 @@ export function assertStatus(status) {
   };
 }
 
-function catchAndLog(err) {
+function catchAndLog(err: any) {
   if (err.response) {
     logger.error(
       `Error ${err.response.status} in request: ${err.response.request.method} ${
