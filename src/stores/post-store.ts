@@ -24,8 +24,9 @@ export default class PostStore {
   }
 
   async create(post: Post) {
-    this.logger.debug(`Creating post with id ${post._id}`);
-    return await new PostSchema(post).save();
+    const newPost = new PostSchema(post);
+    this.logger.debug(`Creating post with id ${newPost._id}`);
+    return await newPost.save();
   }
 
   async update(id: String, post: Post) {
@@ -52,7 +53,7 @@ export default class PostStore {
       } catch (err) {
         return new Error("Couldn't create reply");
       }
-      return parentPost.save();
+      return await parentPost.save();
     } catch (error) {
       throw error;
     }

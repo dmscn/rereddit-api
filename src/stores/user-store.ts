@@ -19,8 +19,9 @@ export default class UserStore {
   }
 
   async create(user: User) {
-    this.logger.debug(`Creating user with id ${user.id}`);
-    return await new UserSchema(user).save();
+    const newUser = new UserSchema(user);
+    this.logger.debug(`Creating user with id ${newUser._id}`);
+    return await newUser.save();
   }
 
   async update(id: String, user: User) {
@@ -30,6 +31,6 @@ export default class UserStore {
 
   async remove(id: String) {
     this.logger.debug(`Removing user with id ${id}`);
-    return UserSchema.findByIdAndRemove(id);
+    return await UserSchema.findByIdAndRemove(id);
   }
 }
