@@ -1,6 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
+// eslint-disable-next-line no-unused-vars
+import { User } from './user-model';
 
 mongoose.Promise = global.Promise;
+
+export type Post = {
+  _id: String;
+  title?: String;
+  content: String;
+  author: User;
+  date: Date;
+  parent?: Post;
+  replies?: [Post];
+};
 
 export const PostSchema = new Schema({
   title: {
@@ -22,6 +34,7 @@ export const PostSchema = new Schema({
     type: String
   },
   replies: {
+    // @ts-ignore
     type: [this],
     required: false
   }

@@ -1,23 +1,30 @@
 {
-  "name": "MKRN",
+  "name": "forum-api",
   "version": "1.0.0",
   "description": "MKRN Stack Application",
-  "repository": "git@github.com:dmscn/MKRN.git",
-  "author": "Leonardo Damasceno <leo.dsc@live.com>",
+  "repository": "git@github.com:dmscn/forum-api.git",
+  "author": "Leonardo Damasceno <ldamasceno.dev@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node dist/bin/www.js",
+    "start": "node dist/bin/www.ts",
+    "build": "tsc",
+    "dev": "nodemon",
+    "prod": "yarn build && yarn start",
     "test": "jest --config ./jest.config.js",
     "test:live": "yarn test --watch --notify",
     "test:clear": "jest --clearCache",
-    "build": "babel src/ -d dist/",
-    "dev": "nodemon src/bin/www.js",
-    "lint": "prettier --write \"src/**/*.js\" && eslint --fix src",
-    "typecheck": "flow check"
+    "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src/**/*.ts"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
+    "@types/jest": "^23.3.13",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.2.1",
+    "@types/koa-compress": "^2.0.8",
+    "@types/koa__cors": "^2.2.3",
+    "@types/lodash": "^4.14.120",
+    "@typescript-eslint/eslint-plugin": "^1.0.0",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
     "axios": "^0.18.0",
@@ -30,7 +37,8 @@
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.9",
-    "palin": "^2.2.0"
+    "palin": "^2.2.0",
+    "ts-jest": "^23.10.5"
   },
   "husky": {
     "hooks": {
@@ -39,7 +47,7 @@
   },
   "lint-staged": {
     "linters": {
-      "**/*.js": [
+      "**/*.{js,ts}": [
         "prettier --write",
         "eslint --fix",
         "git add"
@@ -49,34 +57,20 @@
       "/dist/"
     ]
   },
-  "nodemonConfig": {
-    "execMap": {
-      "js": "babel-node"
-    }
-  },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "babel-plugin-source-map-support": "^2.0.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
+    "@types/supertest": "^2.0.7",
+    "@typescript-eslint/parser": "^1.0.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
-    "flow": "^0.2.3",
-    "flow-bin": "^0.84.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
     "nodemon": "^1.18.5",
     "prettier": "^1.14.3",
-    "smid": "^0.1.1"
+    "smid": "^0.1.1",
+    "supertest": "^3.4.2",
+    "ts-node": "^8.0.1",
+    "typescript": "^3.2.4"
   }
 }

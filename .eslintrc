@@ -1,26 +1,27 @@
 {
-    "parser": "babel-eslint",
-    "env": {
-        "es6": true,
-        "node": true,
-        "jest": true
-    },
-    "extends": [
-        "prettier",
-        "eslint:recommended"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": ["prettier", "eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "no-unused-vars": ["warn"],
+        "no-undef": ["warn"]
+      }
     }
+  ],
+  "plugins": ["@typescript-eslint"]
 }
