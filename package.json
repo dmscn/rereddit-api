@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
+    "@types/jest": "^23.3.13",
     "@types/koa": "^2.0.48",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
@@ -31,7 +32,8 @@
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.9",
-    "palin": "^2.2.0"
+    "palin": "^2.2.0",
+    "ts-jest": "^23.10.5"
   },
   "husky": {
     "hooks": {
