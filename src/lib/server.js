@@ -14,28 +14,28 @@ import { errorHandler } from '../middlewares/error-handler';
  * @returns {Promise<http.Server>} The configured App
  */
 export async function createServer() {
-	logger.debug('Creating Server...');
+  logger.debug('Creating Server...');
 
-	const app = new Koa();
+  const app = new Koa();
 
-	const container = (app.container = configureContainer());
+  const container = (app.container = configureContainer());
 
-	app
-		.use(errorHandler)
-		.use(compress())
-		.use(respond())
-		.use(cors())
-		.use(bodyParser())
-		.use(scopePerRequest(container))
-		.use(loadControllers('../routes/*.js', { cwd: __dirname }))
-		.use(notFound);
+  app
+    .use(errorHandler)
+    .use(compress())
+    .use(respond())
+    .use(cors())
+    .use(bodyParser())
+    .use(scopePerRequest(container))
+    .use(loadControllers('../routes/*.js', { cwd: __dirname }))
+    .use(notFound);
 
-	const server = http.createServer(app.callback());
+  const server = http.createServer(app.callback());
 
-	server.on('close', () => {
-		logger.debug('Server Closing...');
-	});
+  server.on('close', () => {
+    logger.debug('Server Closing...');
+  });
 
-	logger.debug('Server created. Ready to listen.', { scope: 'startup' });
-	return server;
+  logger.debug('Server created. Ready to listen.', { scope: 'startup' });
+  return server;
 }

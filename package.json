@@ -1,20 +1,20 @@
 {
-  "name": "MKRN",
+  "name": "forum-api",
   "version": "1.0.0",
   "description": "MKRN Stack Application",
-  "repository": "git@github.com:dmscn/MKRN.git",
-  "author": "Leonardo Damasceno <leo.dsc@live.com>",
+  "repository": "git@github.com:dmscn/forum-api.git",
+  "author": "Leonardo Damasceno <ldamasceno.dev@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
     "start": "node dist/bin/www.js",
+    "build": "tsc",
+    "dev": "nodemon --watch \"src/\" --exec \"ts-node src/bin/www.js\" -e ts",
+    "prod": "yarn build && yarn start",
     "test": "jest --config ./jest.config.js",
     "test:live": "yarn test --watch --notify",
     "test:clear": "jest --clearCache",
-    "build": "babel src/ -d dist/",
-    "dev": "nodemon src/bin/www.js",
-    "lint": "prettier --write \"src/**/*.js\" && eslint --fix src",
-    "typecheck": "flow check"
+    "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
@@ -62,6 +62,7 @@
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "@types/supertest": "^2.0.7",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -81,6 +82,7 @@
     "nodemon": "^1.18.5",
     "prettier": "^1.14.3",
     "smid": "^0.1.1",
+    "supertest": "^3.4.2",
     "ts-node": "^8.0.1",
     "typescript": "^3.2.4"
   }
