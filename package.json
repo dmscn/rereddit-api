@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
+    "@types/koa": "^2.0.48",
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
     "axios": "^0.18.0",
