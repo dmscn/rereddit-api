@@ -16,11 +16,12 @@ export type PostMock = {
 };
 
 /**
- * @apiDefine PostGroup Post endpoints
+ * @class PostService
+ * @argument store
  *
- * Post are tree structured. A root Post has a title and does not have a `parent` attribute.
- * Replies are Post as well and are the chidlren of a root Post.
- * Replies have a `parent` attribute.
+ * Post are tree structured. A root Post has a title and does not have a `parent` attribute
+ * Replies are Post as well and are the chidlren of a root Post
+ * Replies have a `parent` attribute
  */
 export default class PostService {
   postStore: PostStore | PostMock;
@@ -30,33 +31,30 @@ export default class PostService {
   }
 
   /**
-   * @api {GET} /post/:offset/:limit List all the posts.
-   * @apiGroup PostGroup
-   * @apiParam {Number} offset Specify where the list start.
-   * @apiParam {Number} limit Specify where the list ends.
+   * @param {Number} [offset] Specify where the list start
+   * @param {Number} [limit] Specify where the list ends
+   * @returns {Promise<Post>} List with all the Posts
    */
-  async find(options?: { offset: number; limit: number }) {
+  async find(options?: { offset: number; limit: number }): Promise<Post> {
     // @ts-ignore
     return await this.postStore.find(options);
   }
 
   /**
-   * @api {GET} /post/:id Show a single post.
-   * @apiGroup PostGroup
-   * @apiParam {String} id Id of the post.
+   * @param {String} id Id of the post
+   * @returns {Promise<Post>} The Post found
    */
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<Post> {
     assertId(id);
     const post = await this.postStore.findOneById(id);
     return post || NotFound.makeAssert(`Post with id ${id} not found`);
   }
 
   /**
-   * @api {POST} /post Creates a new root.
-   * @apiGroup PostGroup
-   * @apiParam {String} title Title of the post.
+   * @param {Post} post The Post that will be created
+   * @returns {Promise<Post>} Created Post
    */
-  async create(post: Post) {
+  async create(post: Post): Promise<Post> {
     BadRequest.assert(post, 'Post inexistent');
     BadRequest.assert(post.title, 'No title');
     BadRequest.assert(post.content, 'No content');
@@ -65,18 +63,30 @@ export default class PostService {
     return await this.postStore.create(post);
   }
 
-  async remove(id: string) {
+  /**
+   * @param {String} id Id of the Post that will be removed
+   * @returns {Promise<Post>} Empty Post
+   */
+  async remove(id: string): Promise<Post> {
     assertId(id);
     return this.postStore.remove(id);
   }
 
-  async update(id: string, post: Post) {
+  /**
+   * @param {Post} post The Post that will be updated
+   * @returns {Promise<Post>} Updated Post
+   */
+  async update(id: string, post: Post): Promise<Post> {
     assertId(id);
     BadRequest.assert(post, 'No post given');
     return await this.postStore.update(id, post);
   }
 
-  async reply(reply: Post) {
+  /**
+   * @param {Post} post The reply Post containing the parent that will be replied
+   * @returns {Promise<Post>} The parent Post with it's replies
+   */
+  async reply(reply: Post): Promise<Post> {
     BadRequest.assert(reply, 'Reply Inexistent');
     BadRequest.assert(reply.parent, 'No post reference specified');
     BadRequest.assert(reply.content, 'No content');
