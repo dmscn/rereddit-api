@@ -46,6 +46,11 @@ yarn test:clear
 ```
 to clear jest cache.
 
+```
+yarn coverage
+```
+to check test coverage.
+
 ## Documenting
 ```
 yarn document
