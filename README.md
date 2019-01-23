@@ -1,4 +1,5 @@
-# MKRN (MongoDB, Koa2, React, Node.JS) Stack Forum API 
+# Forum API applying MKRN Stack 
+## (MongoDB, Koa2, React, Node.JS)
 
 [![Build Status](https://travis-ci.org/dmscn/MKRN.svg?branch=master)](https://travis-ci.org/dmscn/MKRN)
 [![Coverage Status](https://coveralls.io/repos/github/dmscn/MKRN/badge.svg?branch=master)](https://coveralls.io/github/dmscn/MKRN?branch=master)
@@ -44,3 +45,9 @@ to run tests live.
 yarn test:clear
 ```
 to clear jest cache.
+
+## Documenting
+```
+yarn document
+```
+to update the API documentation at `doc/` 
