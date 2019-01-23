@@ -13,10 +13,6 @@ export default class UserService {
     this.userStore = userStore;
   }
 
-  async find() {
-    return await this.userStore.find();
-  }
-
   async findOneById(id: string) {
     assertId(id);
     const user = await this.userStore.findOneById(id);

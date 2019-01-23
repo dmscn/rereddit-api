@@ -15,6 +15,14 @@ export type PostMock = {
   reply: (post: Post) => void;
 };
 
+/**
+ * @class PostService
+ * @argument store
+ *
+ * Post are tree structured. A root Post has a title and does not have a `parent` attribute
+ * Replies are Post as well and are the chidlren of a root Post
+ * Replies have a `parent` attribute
+ */
 export default class PostService {
   postStore: PostStore | PostMock;
 
@@ -22,18 +30,31 @@ export default class PostService {
     this.postStore = postStore;
   }
 
-  async find(options?: { offset: number; limit: number }) {
+  /**
+   * @param {Number} [offset] Specify where the list start
+   * @param {Number} [limit] Specify where the list ends
+   * @returns {Promise<any>} List with all the Posts
+   */
+  async find(options?: { offset: number; limit: number }): Promise<any> {
     // @ts-ignore
     return await this.postStore.find(options);
   }
 
-  async findOneById(id: string) {
+  /**
+   * @param {String} id Id of the post
+   * @returns {Promise<any>} The Post found
+   */
+  async findOneById(id: string): Promise<any> {
     assertId(id);
     const post = await this.postStore.findOneById(id);
     return post || NotFound.makeAssert(`Post with id ${id} not found`);
   }
 
-  async create(post: Post) {
+  /**
+   * @param {Post} post The Post that will be created
+   * @returns {Promise<any>} Created Post
+   */
+  async create(post: Post): Promise<any> {
     BadRequest.assert(post, 'Post inexistent');
     BadRequest.assert(post.title, 'No title');
     BadRequest.assert(post.content, 'No content');
@@ -42,18 +63,30 @@ export default class PostService {
     return await this.postStore.create(post);
   }
 
-  async remove(id: string) {
+  /**
+   * @param {String} id Id of the Post that will be removed
+   * @returns {Promise<any>} Empty Post
+   */
+  async remove(id: string): Promise<any> {
     assertId(id);
     return this.postStore.remove(id);
   }
 
-  async update(id: string, post: Post) {
+  /**
+   * @param {Post} post The Post that will be updated
+   * @returns {Promise<any>} Updated Post
+   */
+  async update(id: string, post: Post): Promise<any> {
     assertId(id);
     BadRequest.assert(post, 'No post given');
     return await this.postStore.update(id, post);
   }
 
-  async reply(reply: Post) {
+  /**
+   * @param {Post} post The reply Post containing the parent that will be replied
+   * @returns {Promise<any>} The parent Post with it's replies
+   */
+  async reply(reply: Post): Promise<any> {
     BadRequest.assert(reply, 'Reply Inexistent');
     BadRequest.assert(reply.parent, 'No post reference specified');
     BadRequest.assert(reply.content, 'No content');
