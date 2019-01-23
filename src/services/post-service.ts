@@ -15,6 +15,13 @@ export type PostMock = {
   reply: (post: Post) => void;
 };
 
+/**
+ * @apiDefine PostGroup Post endpoints
+ *
+ * Post are tree structured. A root Post has a title and does not have a `parent` attribute.
+ * Replies are Post as well and are the chidlren of a root Post.
+ * Replies have a `parent` attribute.
+ */
 export default class PostService {
   postStore: PostStore | PostMock;
 
@@ -22,17 +29,33 @@ export default class PostService {
     this.postStore = postStore;
   }
 
+  /**
+   * @api {GET} /post/:offset/:limit List all the posts.
+   * @apiGroup PostGroup
+   * @apiParam {Number} offset Specify where the list start.
+   * @apiParam {Number} limit Specify where the list ends.
+   */
   async find(options?: { offset: number; limit: number }) {
     // @ts-ignore
     return await this.postStore.find(options);
   }
 
+  /**
+   * @api {GET} /post/:id Show a single post.
+   * @apiGroup PostGroup
+   * @apiParam {String} id Id of the post.
+   */
   async findOneById(id: string) {
     assertId(id);
     const post = await this.postStore.findOneById(id);
     return post || NotFound.makeAssert(`Post with id ${id} not found`);
   }
 
+  /**
+   * @api {POST} /post Creates a new root.
+   * @apiGroup PostGroup
+   * @apiParam {String} title Title of the post.
+   */
   async create(post: Post) {
     BadRequest.assert(post, 'Post inexistent');
     BadRequest.assert(post.title, 'No title');
