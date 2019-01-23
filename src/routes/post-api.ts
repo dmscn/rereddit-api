@@ -5,7 +5,7 @@ import { Context } from 'koa';
 import PostService from '../services/post-service';
 
 /**
- * @apiDefine PostGroup Posts endpoints
+ * @apiDefine PostGroup Post endpoints
  *
  * Post are tree structured. A root Post has a title and does not have a `parent` attribute.
  * Replies are Post as well and are the chidlren of a root Post.
@@ -13,7 +13,7 @@ import PostService from '../services/post-service';
  */
 const api = (postService: PostService) => ({
   /**
-   * @api {GET} /post/:offset/:limit List all the posts
+   * @api {GET} /post/:offset/:limit Get All
    * @apiGroup PostGroup
    * @apiParam {Number} offset Specify where the list start
    * @apiParam {Number} limit Specify where the list ends
@@ -25,16 +25,16 @@ const api = (postService: PostService) => ({
   },
 
   /**
-   * @api {GET} /post/:id Show a single post
+   * @api {GET} /post/:id Get Single
    * @apiGroup PostGroup
-   * @apiParam {String} id Id of the post
+   * @apiParam {String} id Id of the post to be found
    */
   findOneById: async (ctx: Context) => {
     return ctx.ok(await postService.findOneById(ctx.params.id));
   },
 
   /**
-   * @api {POST} /post Creates a new root Post
+   * @api {POST} /post Create
    * @apiGroup PostGroup
    * @apiParam {String} title Title of the post
    * @apiParam {String} content Content of the post
@@ -45,7 +45,7 @@ const api = (postService: PostService) => ({
   },
 
   /**
-   * @api {PUT} /post/:id Creates a new root Post
+   * @api {PUT} /post/:id Update
    * @apiGroup PostGroup
    * @apiParam {String} [author] Id of the post author
    * @apiParam {String} [title] Title of the post
@@ -56,7 +56,7 @@ const api = (postService: PostService) => ({
   },
 
   /**
-   * @api {DELETE} /post/:id Creates a new root Post
+   * @api {DELETE} /post/:id Remove
    * @apiGroup PostGroup
    * @apiParam {String} id Id of the post to be removed
    */
@@ -65,7 +65,7 @@ const api = (postService: PostService) => ({
   },
 
   /**
-   * @api {PATCH} /post/:id Creates a new root Post
+   * @api {PATCH} /post/:id Reply
    * @apiGroup PostGroup
    * @apiParam {String} id Id of the post to be replied
    * @apiParam {String} content Content of the post
