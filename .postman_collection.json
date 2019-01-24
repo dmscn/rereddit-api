@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "7d888049-aecd-45c7-bf13-a1ce80d23d96",
+		"name": "forum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Show All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Get All POSTS existent"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts/5c3147fefa4c9b769cda81ca",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts",
+								"5c3147fefa4c9b769cda81ca"
+							]
+						},
+						"description": "Get a single post by its id"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Titiulo do Post",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Conteudo do Post",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "{ name: \"fulano\" }",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts"
+							]
+						},
+						"description": "Create a new POST"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "changed",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "new title",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts/5c3147fefa4c9b769cda81ca",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts",
+								"5c3147fefa4c9b769cda81ca"
+							]
+						},
+						"description": "Changes the POST data. Expects an id."
+					},
+					"response": []
+				},
+				{
+					"name": "Reply",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "parent",
+									"value": "5c439c02e4c9211a56ed4049",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "conteudo de reply",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "titulo de reply",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "{ \"name\" : \"fulano de tal\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts/reply",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts",
+								"reply"
+							]
+						},
+						"description": "Reply a POST.\nThe parent POST must include the reply on its array of replies."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts/5c439ac9ac44731534d0ee93",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts",
+								"5c439ac9ac44731534d0ee93"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Show Single",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/5c4a2a954c1fd00e8e101fd4",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"5c4a2a954c1fd00e8e101fd4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Leonardo",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ldamasceno.dev@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Leo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/5c4a2a954c1fd00e8e101fd4",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"5c4a2a954c1fd00e8e101fd4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Leo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/5c4a2a954c1fd00e8e101fd4",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"5c4a2a954c1fd00e8e101fd4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
