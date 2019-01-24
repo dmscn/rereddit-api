@@ -21,9 +21,10 @@ const api = (userService: UserService) => ({
   /**
    * @api {POST} /user Create
    * @apiGroup UserGroup
-   * @apiParam {String} nome User first name
-   * @apiParam {String} email User email
-   * @apiParam {String} avatar Image Base64 or URL
+   * @apiParam {String} nome First Name
+   * @apiParam {String} email Email
+   * @apiParam {String} [avatar] Image Base64 or URL
+   * @apiParam {Number} [points] Points
    */
   create: async (ctx: Context) => {
     return ctx.created(await userService.create(ctx.request.body));
@@ -32,8 +33,8 @@ const api = (userService: UserService) => ({
   /**
    * @api {PUT} /user Update
    * @apiGroup UserGroup
-   * @apiParam {String} [nome] User first name
-   * @apiParam {String} [email] User email
+   * @apiParam {String} [name] First Name
+   * @apiParam {String} [email] Email
    * @apiParam {String} [avatar] Image Base64 or URL
    */
   update: async (ctx: Context) => {

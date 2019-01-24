@@ -23,8 +23,6 @@ export default class UserService {
     BadRequest.assert(user, 'User inexistent');
     BadRequest.assert(user.name, 'No title');
     BadRequest.assert(user.email, 'No content');
-    BadRequest.assert(user.points, 'No author');
-    BadRequest.assert(user.avatar, 'No avatar');
     user.date = new Date(); // Sets the current date
     return await this.userStore.create(user);
   }

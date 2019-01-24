@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 
 export type User = {
   _id?: String;
-  name?: String;
+  name: String;
   email: String;
   points?: Number;
   avatar?: String;
@@ -26,8 +26,7 @@ export const UserSchema = Schema({
     default: 0
   },
   avatar: {
-    type: String,
-    required: true
+    type: String
   }
 });
 
