@@ -4,6 +4,7 @@ import cors from '@koa/cors';
 import respond from 'koa-respond';
 import compress from 'koa-compress';
 import bodyParser from 'koa-bodyparser';
+import session from 'koa-session';
 import { scopePerRequest, loadControllers } from 'awilix-koa';
 import { logger } from './logger';
 import { configureContainer } from './container';
@@ -26,6 +27,7 @@ export async function createServer() {
     .use(respond())
     .use(cors())
     .use(bodyParser())
+    .use(session())
     .use(scopePerRequest(container))
     .use(loadControllers('../routes/*.ts', { cwd: __dirname }))
     .use(notFound);

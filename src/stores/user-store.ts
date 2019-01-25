@@ -8,6 +8,11 @@ export default class UserStore {
     this.logger = logger;
   }
 
+  async find(query?: Object) {
+    this.logger.debug(`Looking for users with query: ${query}`);
+    return await UserSchema.find(query);
+  }
+
   async findOneById(id: String) {
     this.logger.debug(`Getting user with id ${id}`);
     return await UserSchema.findById(id);
