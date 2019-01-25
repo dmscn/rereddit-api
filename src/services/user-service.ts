@@ -3,6 +3,7 @@ import { NotFound, BadRequest } from 'fejl';
 import UserStore from '../stores/user-store';
 // eslint-disable-next-line no-unused-vars
 import { User } from '../models/user-model';
+import { hash } from '../helpers/authentication';
 
 const assertId = BadRequest.makeAssert('No id given');
 
@@ -13,6 +14,24 @@ export default class UserService {
     this.userStore = userStore;
   }
 
+  async login(email: string, password: string) {
+    return `${email} ${hash(password)}`;
+  }
+
+  async logout(id: string) {
+    return `${id}`;
+  }
+
+  async register(user: User) {
+    BadRequest.assert(user, 'User inexistent');
+    BadRequest.assert(user.firstName, 'No first name given');
+    BadRequest.assert(user.lastName, 'No last name given');
+    BadRequest.assert(user.email, 'No email given');
+    BadRequest.assert(user.password, 'No password given');
+    user.date = new Date(); // Sets the current date
+    return await this.userStore.create(user);
+  }
+
   async find(query?: Object) {
     return await this.userStore.find(await query);
   }
@@ -21,14 +40,6 @@ export default class UserService {
     assertId(id);
     const user = await this.userStore.findOneById(id);
     return user || NotFound.makeAssert(`User with id ${id} not found`);
-  }
-
-  async create(user: User) {
-    BadRequest.assert(user, 'User inexistent');
-    BadRequest.assert(user.name, 'No title');
-    BadRequest.assert(user.email, 'No content');
-    user.date = new Date(); // Sets the current date
-    return await this.userStore.create(user);
   }
 
   async remove(id: string) {

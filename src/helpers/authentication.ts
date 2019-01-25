@@ -12,8 +12,8 @@ export const generateToken = (key: Object) => {
   });
 };
 
-const autheticationMiddleware = async (ctx: Context, next: Function): Promise<any> => {
-  let token = ctx.request.headers['x-access-token'] || ctx.request.headers['authorization'];
+const authenticate = async (ctx: Context): Promise<any> => {
+  let token = ctx.request.headers['x-access-token'] || ctx.request.headers['Authorization'];
 
   if (!token) return Forbidden.makeAssert('No Token Provided');
   if (!token.startsWith('Bearer ')) return Forbidden.makeAssert('Invalid Token');
@@ -22,10 +22,10 @@ const autheticationMiddleware = async (ctx: Context, next: Function): Promise<an
 
   try {
     await jwt.verify(token, env.AUTH_SECRET_KEY);
-    await next();
+    return true;
   } catch (err) {
-    return Forbidden.makeAssert('Token Invalid');
+    return Forbidden.makeAssert('Invalid Token');
   }
 };
 
-export default autheticationMiddleware;
+export default authenticate;

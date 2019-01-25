@@ -1,8 +1,7 @@
 import { createController } from 'awilix-koa';
-import bcrypt from 'bcryptjs';
-// eslint-disable-next-line no-unused-vars
 import { Context } from 'koa';
 import UserService from '../services/user-service';
+import authenticate from '../helpers/authentication';
 
 /**
  * @apiDefine UserGroup User enpoints
@@ -16,13 +15,18 @@ const api = (userService: UserService) => ({
    * @apiParam {String} email Email
    * @apiParam {String} Password Password
    */
-  login: async (ctx: Context) => {},
+  login: async (ctx: Context) => {
+    const { email, password } = ctx.request.body;
+    return await userService.login(email, password);
+  },
 
   /**
    * @api {GET} /logout
    * @apiGroup AuthGroup
    */
-  logout: async (ctx: Context) => {},
+  logout: async (ctx: Context) => {
+    return await userService.logout(ctx.request.body);
+  },
 
   /**
    * @api {POST} /user Create
@@ -33,7 +37,7 @@ const api = (userService: UserService) => ({
    * @apiParam {Number} [points] Points
    */
   register: async (ctx: Context) => {
-    return await userService.create(ctx.request.body);
+    return await userService.register(ctx.request.body);
   },
 
   /**
@@ -42,6 +46,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} [query] Query to find the users
    */
   find: async (ctx: Context) => {
+    await authenticate(ctx);
     return ctx.ok(await userService.find(JSON.parse(ctx.request.body.query)));
   },
 
@@ -51,6 +56,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} id Id of the post to be found
    */
   findOneById: async (ctx: Context) => {
+    await authenticate(ctx);
     return ctx.ok(await userService.findOneById(ctx.params.id));
   },
 
@@ -62,6 +68,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} [avatar] Image Base64 or URL
    */
   update: async (ctx: Context) => {
+    await authenticate(ctx);
     return ctx.ok(await userService.update(ctx.params.id, ctx.request.body));
   },
 
@@ -71,6 +78,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} id Id of the User to remove
    */
   remove: async (ctx: Context) => {
+    await authenticate(ctx);
     return ctx.noContent(await userService.remove(ctx.params.id));
   }
 });

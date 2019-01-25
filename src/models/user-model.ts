@@ -1,16 +1,15 @@
 import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcryptjs';
 
 mongoose.Promise = global.Promise;
 
 export type User = {
-  _id?: String;
-  firstName: String;
-  lastName: String;
-  email: String;
-  password: String;
-  points?: Number;
-  avatar?: String;
+  _id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  points?: number;
+  avatar?: string;
   date?: Date;
 };
 
