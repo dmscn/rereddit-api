@@ -30,8 +30,10 @@
     "awilix": "^4.0.0",
     "awilix-koa": "^3.0.0",
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "bristol": "^0.4.0",
     "fejl": "^1.0.2",
+    "jsonwebtoken": "^8.4.0",
     "koa": "^2.6.1",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
@@ -63,6 +65,8 @@
     ]
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.3.0",
     "@types/supertest": "^2.0.7",
     "@typescript-eslint/parser": "^1.0.0",
     "apidoc": "^0.17.7",

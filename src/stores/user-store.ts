@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import UserSchema, { User } from '../models/user-model';
+import bcrypt from 'bcryptjs';
 
 export default class UserStore {
   logger: any;
@@ -19,6 +20,11 @@ export default class UserStore {
   }
 
   async create(user: User) {
+    try {
+      user.password = await bcrypt.hash(user.password, 10);
+    } catch (error) {
+      throw new Error(`Could not encrypt password`);
+    }
     const newUser = new UserSchema(user);
     this.logger.debug(`Creating user with id ${newUser._id}`);
     return await newUser.save();

@@ -27,7 +27,7 @@ export async function createServer() {
     .use(respond())
     .use(cors())
     .use(bodyParser())
-    .use(session())
+    .use(session(app))
     .use(scopePerRequest(container))
     .use(loadControllers('../routes/*.ts', { cwd: __dirname }))
     .use(notFound);

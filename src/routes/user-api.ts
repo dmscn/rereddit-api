@@ -1,4 +1,5 @@
 import { createController } from 'awilix-koa';
+import bcrypt from 'bcryptjs';
 // eslint-disable-next-line no-unused-vars
 import { Context } from 'koa';
 import UserService from '../services/user-service';
@@ -32,7 +33,7 @@ const api = (userService: UserService) => ({
    * @apiParam {Number} [points] Points
    */
   register: async (ctx: Context) => {
-    return ctx.created(await userService.create(ctx.request.body));
+    return await userService.create(ctx.request.body);
   },
 
   /**

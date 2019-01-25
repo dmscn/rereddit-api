@@ -1,21 +1,25 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { env } from '../lib/env';
 import { Forbidden } from 'fejl';
 import { Context } from 'koa';
 
-export const hash = (password: string) => bcrypt.hash(password, 8);
+export const hash = (str: string) => bcrypt.hash(str, 10);
 
-export const generateToken = (email: string, hashPass: string) => {
-  return jwt.sign({ id: `${email}:${hashPass}` }, env.AUTH_SECRET_KEY, {
+export const generateToken = (key: Object) => {
+  return jwt.sign(key, env.AUTH_SECRET_KEY, {
     expiresIn: 86400 // expires in 24 hours
   });
 };
 
-export const verifyToken = (token: string) => jwt.verify(token, env.AUTH_SECRET_KEY);
-
 const autheticationMiddleware = async (ctx: Context, next: Function): Promise<any> => {
-  const token = ctx.request.headers['x-access-token'];
+  let token = ctx.request.headers['x-access-token'] || ctx.request.headers['authorization'];
+
   if (!token) return Forbidden.makeAssert('No Token Provided');
+  if (!token.startsWith('Bearer ')) return Forbidden.makeAssert('Invalid Token');
+
+  token = token.slice(7, token.length);
+
   try {
     await jwt.verify(token, env.AUTH_SECRET_KEY);
     await next();
@@ -23,4 +27,5 @@ const autheticationMiddleware = async (ctx: Context, next: Function): Promise<an
     return Forbidden.makeAssert('Token Invalid');
   }
 };
+
 export default autheticationMiddleware;

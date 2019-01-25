@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 mongoose.Promise = global.Promise;
 
@@ -7,6 +8,7 @@ export type User = {
   firstName: String;
   lastName: String;
   email: String;
+  password: String;
   points?: Number;
   avatar?: String;
   date?: Date;
@@ -26,6 +28,10 @@ export const UserSchema = Schema({
     required: true,
     index: true,
     unique: true
+  },
+  password: {
+    type: String,
+    required: true
   },
   points: {
     type: Number,
