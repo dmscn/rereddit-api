@@ -3,7 +3,7 @@ import { NotFound, BadRequest, Forbidden } from 'fejl';
 import UserStore from '../stores/user-store';
 // eslint-disable-next-line no-unused-vars
 import { User } from '../models/user-model';
-import { validatePassword } from '../helpers/authentication';
+import { validatePassword, generateToken } from '../helpers/authentication';
 // import { decrypt } from '../helpers/authentication';
 
 const assertId = BadRequest.makeAssert('No id given');
@@ -25,9 +25,14 @@ export default class UserService {
 
       // @ts-ignore
       Forbidden.assert(validatePassword(password, user.password), 'Invalid Password');
+      user.password = undefined;
 
-      delete user.password;
-      return user;
+      const token = await generateToken(user);
+
+      return {
+        user,
+        token
+      };
     } catch (error) {
       throw error;
     }
@@ -41,7 +46,8 @@ export default class UserService {
   async register(body: User) {
     const { firstName, lastName, email, password } = body;
 
-    // TODO: Check if email isnnt already user
+    const usersWithThisEmail = await this.find({ email });
+    BadRequest.assert(!usersWithThisEmail, `${email} is already registered`);
 
     BadRequest.assert(firstName, 'No first name given');
     BadRequest.assert(lastName, 'No last name given');
@@ -65,7 +71,8 @@ export default class UserService {
   async findOneById(id: string) {
     assertId(id);
     const user = await this.userStore.findOneById(id);
-    return user || NotFound.makeAssert(`User with id ${id} not found`);
+    NotFound.assert(user, `User with id ${id} not found`);
+    return user;
   }
 
   async remove(id: string) {

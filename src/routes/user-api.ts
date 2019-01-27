@@ -2,6 +2,7 @@ import { createController } from 'awilix-koa';
 import { Context } from 'koa';
 import UserService from '../services/user-service';
 import authenticate from '../helpers/authentication';
+import { Forbidden } from 'fejl';
 
 /**
  * @apiDefine UserGroup User enpoints
@@ -46,7 +47,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} [query] Query to find the users
    */
   find: async (ctx: Context) => {
-    await authenticate(ctx);
+    Forbidden.assert(await authenticate(ctx));
     return ctx.ok(await userService.find(JSON.parse(ctx.request.body.query)));
   },
 
@@ -56,7 +57,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} id Id of the post to be found
    */
   findOneById: async (ctx: Context) => {
-    await authenticate(ctx);
+    Forbidden.assert(await authenticate(ctx));
     return ctx.ok(await userService.findOneById(ctx.params.id));
   },
 
@@ -68,7 +69,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} [avatar] Image Base64 or URL
    */
   update: async (ctx: Context) => {
-    await authenticate(ctx);
+    Forbidden.assert(await authenticate(ctx));
     return ctx.ok(await userService.update(ctx.params.id, ctx.request.body));
   },
 
@@ -78,7 +79,7 @@ const api = (userService: UserService) => ({
    * @apiParam {String} id Id of the User to remove
    */
   remove: async (ctx: Context) => {
-    await authenticate(ctx);
+    Forbidden.assert(await authenticate(ctx));
     return ctx.noContent(await userService.remove(ctx.params.id));
   }
 });

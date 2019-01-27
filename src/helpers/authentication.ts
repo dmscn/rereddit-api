@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../lib/env';
 import { Forbidden } from 'fejl';
-import { Context } from 'koa';
 import crypto from 'crypto-js';
+import { logger } from '../lib/logger';
+import { Context } from 'koa';
 
 export const encrypt = (data: any) => crypto.AES.encrypt(data, env.SECRET_KEY).toString();
 export const decrypt = (data: any) =>
@@ -11,26 +12,21 @@ export const decrypt = (data: any) =>
 export const validatePassword = (password: string, hash: string): boolean =>
   password === decrypt(hash);
 
-export const generateToken = (key: Object) => {
-  return jwt.sign(key, env.AUTH_SECRET_KEY, {
+export const generateToken = (data: Object) =>
+  jwt.sign({ data }, env.AUTH_SECRET_KEY, {
     expiresIn: 86400 // expires in 24 hours
   });
-};
 
 const authenticate = async (ctx: Context): Promise<any> => {
-  let token = ctx.request.headers['x-access-token'] || ctx.request.headers['Authorization'];
+  let token = ctx.request.headers.authorization;
 
-  if (!token) return Forbidden.makeAssert('No Token Provided');
-  if (!token.startsWith('Bearer ')) return Forbidden.makeAssert('Invalid Token');
+  logger.debug(`Validating JWT: ${token}`);
+
+  Forbidden.assert(token, 'No Token Provided');
+  Forbidden.assert(token.startsWith('Bearer '), 'Invalid Token');
 
   token = token.slice(7, token.length);
-
-  try {
-    await jwt.verify(token, env.AUTH_SECRET_KEY);
-    return true;
-  } catch (err) {
-    return Forbidden.makeAssert('Invalid Token');
-  }
+  return jwt.verify(token, env.AUTH_SECRET_KEY);
 };
 
 export default authenticate;
