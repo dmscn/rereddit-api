@@ -3,20 +3,32 @@ import mongoose, { Schema } from 'mongoose';
 mongoose.Promise = global.Promise;
 
 export type User = {
-  _id?: String;
-  name: String;
-  email: String;
-  points?: Number;
-  avatar?: String;
+  _id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  points?: number;
+  avatar?: string;
   date?: Date;
 };
 
 export const UserSchema = Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
   email: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true
+  },
+  password: {
     type: String,
     required: true
   },

@@ -3,7 +3,11 @@ import PostService, { PostMock } from '../../services/post-service';
 import { Post } from '../../models/post-model';
 
 class User {
-  email: string;
+  _id = '1';
+  email = 'email@email.com';
+  firstName = 'John';
+  lastName = 'Wicker';
+  password = '123456';
 
   constructor(email: string) {
     this.email = email;
@@ -14,7 +18,7 @@ const post: Post = {
   _id: '5',
   title: 'Baz',
   content: 'Baz',
-  author: new User('email@email.com'),
+  author: new User('teste@teste.com'),
   date: new Date()
 };
 
