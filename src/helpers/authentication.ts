@@ -1,10 +1,15 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { env } from '../lib/env';
 import { Forbidden } from 'fejl';
 import { Context } from 'koa';
+import crypto from 'crypto-js';
 
-export const hash = (str: string) => bcrypt.hash(str, 10);
+export const encrypt = (data: any) => crypto.AES.encrypt(data, env.SECRET_KEY).toString();
+export const decrypt = (data: any) =>
+  crypto.AES.decrypt(data, env.SECRET_KEY).toString(crypto.enc.Utf8);
+
+export const validatePassword = (password: string, hash: string): boolean =>
+  password === decrypt(hash);
 
 export const generateToken = (key: Object) => {
   return jwt.sign(key, env.AUTH_SECRET_KEY, {

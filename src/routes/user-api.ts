@@ -17,7 +17,7 @@ const api = (userService: UserService) => ({
    */
   login: async (ctx: Context) => {
     const { email, password } = ctx.request.body;
-    return await userService.login(email, password);
+    return ctx.ok(await userService.login(email, password));
   },
 
   /**
@@ -25,7 +25,7 @@ const api = (userService: UserService) => ({
    * @apiGroup AuthGroup
    */
   logout: async (ctx: Context) => {
-    return await userService.logout(ctx.request.body);
+    return await ctx.ok(await userService.logout());
   },
 
   /**
@@ -37,7 +37,7 @@ const api = (userService: UserService) => ({
    * @apiParam {Number} [points] Points
    */
   register: async (ctx: Context) => {
-    return await userService.register(ctx.request.body);
+    return await ctx.ok(await userService.register(ctx.request.body));
   },
 
   /**

@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import UserSchema, { User } from '../models/user-model';
-import bcrypt from 'bcryptjs';
+import { encrypt } from '../helpers/authentication';
+import { logger } from '../lib/logger';
 
 export default class UserStore {
   logger: any;
@@ -10,7 +11,7 @@ export default class UserStore {
   }
 
   async find(query?: Object) {
-    this.logger.debug(`Looking for users with query: ${query}`);
+    this.logger.debug(`Looking for users with query: ${JSON.stringify(query, null, 2)}`);
     return await UserSchema.find(query);
   }
 
@@ -20,13 +21,14 @@ export default class UserStore {
   }
 
   async create(user: User) {
-    try {
-      user.password = await bcrypt.hash(user.password, 10);
-    } catch (error) {
-      throw new Error(`Could not encrypt password`);
-    }
+    user.password = encrypt(user.password);
+    logger.debug(`Encrypting user password to ${user.password} (encrypted)`);
+
+    user.date = new Date();
+
     const newUser = new UserSchema(user);
-    this.logger.debug(`Creating user with id ${newUser._id}`);
+    this.logger.debug(`Creating user with id ${newUser._id} created at ${user.date}`);
+
     return await newUser.save();
   }
 

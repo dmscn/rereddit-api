@@ -14,7 +14,7 @@ import { errorHandler } from '../middlewares/error-handler';
 /**
  * @returns {Promise<http.Server>} The configured App
  */
-export async function createServer() {
+export async function createServer(): Promise<http.Server> {
   logger.debug('Creating Server...');
 
   const app: any = new Koa();
