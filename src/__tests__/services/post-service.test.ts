@@ -1,73 +1,53 @@
 import { throws } from 'smid';
-import PostService, { PostMock } from '../../services/post-service';
-import { Post } from '../../models/post-model';
+import PostService from '../../services/post-service';
+import PostMock, { PostStoreMock, mockDatabase } from '../../__mocks__/post.mock';
 
-class User {
-  _id = '1';
-  email = 'email@email.com';
-  firstName = 'John';
-  lastName = 'Wicker';
-  password = '123456';
-
-  constructor(email: string) {
-    this.email = email;
-  }
-}
-
-const post: Post = {
-  _id: '5',
-  title: 'Baz',
-  content: 'Baz',
-  author: new User('teste@teste.com'),
-  date: new Date()
-};
+const postStoreMock = new PostStoreMock(mockDatabase);
+const service = new PostService(postStoreMock);
 
 describe('PostService', () => {
   describe('find', () => {
-    it('should findOneById all posts', async () => {
-      const { service, posts } = setup();
-      expect(await service.find()).toEqual(posts);
+    it('returns all posts', async () => {
+      expect(await service.find()).toEqual(mockDatabase);
+    });
+
+    it('returns a post with offset and limit', async () => {
+      expect((await service.find(1, 2)).length).toBe(2);
     });
   });
 
   describe('findOneById', () => {
-    it('should return not found', async () => {
-      const { service } = setup();
+    it('return not found', async () => {
       expect(await throws(await service.findOneById('nonexistent')).message).toMatch(
         /not found/
       );
     });
 
     it('should findOneById post by id', async () => {
-      const { service, posts } = setup();
-      expect(await service.findOneById('1')).toEqual(posts[0]);
-      expect(await service.findOneById('2')).toEqual(posts[1]);
+      expect(await service.findOneById('1')).toEqual(mockDatabase[0]);
+      expect(await service.findOneById('2')).toEqual(mockDatabase[1]);
     });
   });
 
   describe('create', () => {
+    // TODO: It should be authorized
     it('should return bad request', async () => {
-      const { service } = setup();
-      // @ts-ignore
       expect((await throws(service.create(null))).message).toMatch(/Post inexistent/);
-      // @ts-ignore
-      expect((await throws(service.create({ title: 'baz' }))).message).toMatch(/content/);
-      expect(
-        // @ts-ignore
-        (await throws(service.create({ title: 'baz', content: 'baz@email.com' }))).message
-      ).toMatch(/author/);
+      expect((await throws(service.create(new PostMock({ title: 'baz' })))).message).toMatch(
+        /content/
+      );
+      expect((await throws(service.create(new PostMock()))).message).toMatch(/author/);
       // TODO: Complete expects
     });
 
     it('should create a new post', async () => {
-      const { service } = setup();
+      const post = new PostMock();
       expect(await service.create(post)).toMatchObject(post);
     });
   });
 
   describe('update', () => {
     it('should return not found ', async () => {
-      const { service } = setup();
       // @ts-ignore
       expect((await throws(service.update(null, null))).message).toMatch(/id/);
       // @ts-ignore
@@ -75,26 +55,23 @@ describe('PostService', () => {
     });
 
     it('should return bad request', async () => {
-      const { service } = setup();
       // @ts-ignore
       expect((await throws(service.update('1'))).message).toMatch(/post/);
     });
 
     it('should update post', async () => {
-      const { service } = setup();
+      const post = new PostMock();
       expect(await service.update('1', post)).toMatchObject(post);
     });
   });
 
   describe('remove', () => {
     it('should return not found', async () => {
-      const { service } = setup();
       // @ts-ignore
       expect((await throws(service.remove())).message).toMatch(/id/);
     });
 
     it('should remove post', async () => {
-      const { service } = setup();
       expect(await service.remove('1')).toEqual(undefined);
     });
   });
@@ -103,7 +80,7 @@ describe('PostService', () => {
     let reply: any = {};
 
     it('should return bad request', async () => {
-      const { service } = setup();
+      const post = new PostMock();
       expect((await throws(service.reply(reply))).message).toMatch(/post/);
 
       reply.title = 'Foo';
@@ -131,36 +108,3 @@ describe('PostService', () => {
     // });
   });
 });
-
-function setup() {
-  const posts = [
-    {
-      id: '1',
-      title: 'Foo',
-      content: '999999999',
-      author: new User('foo@email.com'),
-      date: new Date()
-    },
-    {
-      id: '2',
-      title: 'Bar',
-      content: '888888888',
-      author: new User('bar@email.com'),
-      date: new Date()
-    }
-  ];
-
-  /* eslint-disable */
-  const store: PostMock = {
-    // @ts-ignore
-    find: jest.fn(async (offset?: number, limit?: number) => [...posts]),
-    findOneById: jest.fn(async (id: string) => posts.find(post => post.id === id)),
-    create: jest.fn(async (post: Post) => ({ ...post, id: 3 })),
-    update: jest.fn(async (data: any) => ({ ...post, ...data })),
-    // @ts-ignore
-    remove: jest.fn(async (id: string) => undefined),
-    reply: jest.fn(async reply => reply)
-  };
-  /* eslint-enable */
-  return { service: new PostService(store), store, posts };
-}

@@ -2,18 +2,10 @@ import { NotFound, BadRequest } from 'fejl';
 // eslint-disable-next-line no-unused-vars
 import PostStore from '../stores/post-store';
 // eslint-disable-next-line no-unused-vars
+import { PostStoreMock } from '../__mocks__/post.mock';
 import { Post } from '../models/post-model';
 
 const assertId = BadRequest.makeAssert('No id given');
-
-export type PostMock = {
-  find: (offset: number, limit: number) => void;
-  findOneById: (id: string) => void;
-  create: (post: Post) => void;
-  remove: (id: string) => void;
-  update: (id: string, post: Post) => void;
-  reply: (post: Post) => void;
-};
 
 /**
  * @class PostService
@@ -24,9 +16,9 @@ export type PostMock = {
  * Replies have a `parent` attribute
  */
 export default class PostService {
-  postStore: PostStore | PostMock;
+  postStore: PostStore | PostStoreMock;
 
-  constructor(postStore: PostStore | PostMock) {
+  constructor(postStore: PostStore | PostStoreMock) {
     this.postStore = postStore;
   }
 
@@ -35,9 +27,9 @@ export default class PostService {
    * @param {Number} [limit] Specify where the list ends
    * @returns {Promise<any>} List with all the Posts
    */
-  async find(options?: { offset: number; limit: number }): Promise<any> {
+  async find(offset?: number, limit?: number): Promise<any> {
     // @ts-ignore
-    return await this.postStore.find(options);
+    return await this.postStore.find(offset, limit);
   }
 
   /**
