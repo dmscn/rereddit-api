@@ -161,12 +161,15 @@ describe('PostService', () => {
     beforeEach(() => {
       jest.spyOn(postStoreMock, 'remove').mockClear();
     });
-    it('is forbidden', () => {});
-    it('returns BadRequest', async () => {});
-    it('returns NotFound', async () => {
-      // expect(await throws()).toMatch(/not found/);
+    it('returns BadRequest', async () => {
+      const { message } = await throws(service.remove(undefined));
+      expect(message).toMatch(/No id given/);
+      expect(postStoreMock.remove).not.toHaveBeenCalled();
     });
-    it('removes Post', async () => {});
+    it('removes Post', async () => {
+      expect(await service.remove('5')).toEqual({});
+      expect(postStoreMock.remove).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('reply', () => {
@@ -177,7 +180,6 @@ describe('PostService', () => {
     beforeEach(() => {
       jest.spyOn(postStoreMock, 'reply').mockClear();
     });
-    it('is forbidden', async () => {});
     it('returns BadRequest', async () => {});
     it('reply a Post', async () => {});
   });

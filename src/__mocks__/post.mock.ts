@@ -75,6 +75,7 @@ export class PostStoreMock {
 
   // @ts-ignore
   async remove(id: string) {
-    return null;
+    if (!(await this.findOneById(id))) return null;
+    return {};
   }
 }

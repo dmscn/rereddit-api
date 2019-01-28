@@ -106,6 +106,8 @@ export default class PostService {
    */
   async remove(id: string): Promise<any> {
     assertId(id);
-    return this.postStore.remove(id);
+    const result = await this.postStore.remove(id);
+    NotFound.assert(result, `No Post found with id ${id}`);
+    return result;
   }
 }

@@ -50,7 +50,11 @@ export default class PostStore {
 
   async remove(id: string) {
     this.logger.debug(`Removing post with id ${id}`);
-    return PostSchema.findByIdAndRemove(id);
+    try {
+      return (await PostSchema.findByIdAndRemove(id)) || {};
+    } catch (err) {
+      return null;
+    }
   }
 
   async reply(reply: any) {
