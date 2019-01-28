@@ -18,9 +18,21 @@ export default class PostMock {
     parent?: PostMock;
     replies?: [PostMock];
   }) {
-    this._id = data ? data.id : Math.random().toString(36);
-    this.title = data ? data.title : Math.random().toString(10);
-    this.content = data ? data.content : Math.random().toString(10);
+    this._id = data
+      ? data._id
+      : Math.random()
+          .toString(36)
+          .substring(7);
+    this.title = data
+      ? data.title
+      : Math.random()
+          .toString(36)
+          .substring(7);
+    this.content = data
+      ? data.content
+      : Math.random()
+          .toString(36)
+          .substring(7);
     this.author = data ? data.author : new UserMock();
     this.date = data ? data.date : new Date();
     this.parent = data ? data.parent : undefined;
@@ -29,11 +41,11 @@ export default class PostMock {
 }
 
 export let mockDatabase = [
-  new PostMock({ id: '1' }),
-  new PostMock({ id: '2' }),
-  new PostMock({ id: '3' }),
-  new PostMock({ id: '4' }),
-  new PostMock({ id: '5' })
+  new PostMock({ _id: '1' }),
+  new PostMock({ _id: '2' }),
+  new PostMock({ _id: '3' }),
+  new PostMock({ _id: '4' }),
+  new PostMock({ _id: '5' })
 ];
 
 export class PostStoreMock {

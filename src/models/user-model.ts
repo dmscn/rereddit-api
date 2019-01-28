@@ -9,6 +9,8 @@ export type User = {
   password?: string;
   points?: number;
   avatar?: string;
+  birth?: Date;
+  createdAt?: Date;
 };
 
 export const UserSchema = Schema({
@@ -30,6 +32,9 @@ export const UserSchema = Schema({
     type: String,
     required: true
   },
+  birth: {
+    type: Date
+  },
   points: {
     type: Number,
     required: false,
@@ -37,6 +42,10 @@ export const UserSchema = Schema({
   },
   avatar: {
     type: String
+  },
+  created_at: {
+    type: Date,
+    default: new Date()
   }
 });
 

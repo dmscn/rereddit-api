@@ -24,10 +24,10 @@ export default class UserStore {
     user.password = encrypt(user.password);
     logger.debug(`Encrypting user password to ${user.password} (encrypted)`);
 
-    user.date = new Date();
-
     const newUser = new UserSchema(user);
-    this.logger.debug(`Creating user with id ${newUser._id} created at ${user.date}`);
+    this.logger.debug(
+      `Creating user with id ${newUser._id} created at ${newUser.created_at}`
+    );
 
     return await newUser.save();
   }

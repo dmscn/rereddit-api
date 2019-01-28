@@ -8,7 +8,7 @@ export default class PostStore {
     this.logger = logger;
   }
 
-  async find(offset = 0, limit = 20) {
+  async findAll(offset = 0, limit = 20) {
     this.logger.debug('Getting all the posts');
     return await PostSchema.find({ parent: null })
       .skip(offset)
@@ -16,6 +16,11 @@ export default class PostStore {
       .sort({
         date: 'asc'
       });
+  }
+
+  async find(query: Object) {
+    this.logger.debug(`Getting Post that satisfies: ${query}`);
+    return await PostSchema.find(query);
   }
 
   async findOneById(id: string) {
