@@ -1,4 +1,4 @@
-import { NotFound, BadRequest, Forbidden } from 'fejl';
+import { NotFound, BadRequest, NotAuthenticated } from 'fejl';
 // eslint-disable-next-line no-unused-vars
 import UserStore from '../stores/user-store';
 // eslint-disable-next-line no-unused-vars
@@ -20,11 +20,11 @@ export default class UserService {
     BadRequest.assert(password, 'No password given');
 
     try {
-      let user = (await this.find({ email }))[0];
+      let user = (await this.find({ query: { email } }))[0];
       NotFound.assert(user, `${email} not registered.`);
 
       // @ts-ignore
-      Forbidden.assert(validatePassword(password, user.password), 'Invalid Password');
+      NotAuthenticated.assert(validatePassword(password, user.password), 'Invalid Password');
       user.password = undefined;
 
       const token = await generateToken(user);

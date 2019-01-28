@@ -25,7 +25,7 @@ const api = (postService: PostService) => ({
   },
 
   /**
-   * @api {GET} /post/:offset/:limit Get All
+   * @api {GET} /post/search Search for Posts
    * @apiGroup PostGroup
    * @apiParam {Number} offset Specify where the list start
    * @apiParam {Number} limit Specify where the list ends

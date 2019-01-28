@@ -63,7 +63,8 @@ export class PostStoreMock {
     return post;
   }
 
-  async update(post: PostMock) {
+  // @ts-ignore
+  async update(id: string, post: PostMock) {
     return post;
   }
 

@@ -37,10 +37,10 @@ export default class PostService {
    */
   async find(data: any): Promise<any> {
     BadRequest.assert(data, 'No query given');
-    BadRequest.assert(data.query, 'No query given');
 
-    const posts = await this.postStore.find(data.query);
-    NotFound.assert(posts, `No Posts found with query ${data.query}`);
+    let posts = await this.postStore.find(data);
+    if (posts.length === 0) posts = null;
+    NotFound.assert(posts, `No Posts found with query ${data}`);
 
     return posts;
   }
@@ -52,8 +52,8 @@ export default class PostService {
   async findOneById(id: string): Promise<any> {
     assertId(id);
 
-    const post = await this.postStore.findOneById(id);
-    NotFound.assert(post, `No Post found with id ${id}`);
+    let post = await this.postStore.findOneById(id);
+    NotFound.assert(post || null, `No Post found with id ${id}`);
 
     return post;
   }
@@ -67,7 +67,8 @@ export default class PostService {
     BadRequest.assert(data.content, 'No content given');
     BadRequest.assert(data.author, 'No author given');
 
-    return await this.postStore.create(data);
+    const post = await this.postStore.create(data);
+    return post;
   }
 
   /**

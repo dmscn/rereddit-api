@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import PostSchema, { Post } from '../models/post-model';
+import PostSchema from '../models/post-model';
 
 export default class PostStore {
   logger: any;
@@ -28,23 +28,23 @@ export default class PostStore {
     return await PostSchema.findById(id);
   }
 
-  async create(post: Post) {
-    const newPost = new PostSchema(post);
+  async create(data: any) {
+    const newPost = new PostSchema(data);
     this.logger.debug(`Creating post with id ${newPost._id}`);
     return await newPost.save();
   }
 
-  async update(id: String, post: Post) {
+  async update(id: string, data: any) {
     this.logger.debug(`Updating post with id ${id}`);
-    return await PostSchema.findByIdAndUpdate(id, post, { new: true });
+    return await PostSchema.findByIdAndUpdate(id, data, { new: true });
   }
 
-  async remove(id: String) {
+  async remove(id: string) {
     this.logger.debug(`Removing post with id ${id}`);
     return PostSchema.findByIdAndRemove(id);
   }
 
-  async reply(reply: Post) {
+  async reply(reply: any) {
     this.logger.debug(`Replying post with id ${reply.parent}`);
     try {
       this.logger.debug(
