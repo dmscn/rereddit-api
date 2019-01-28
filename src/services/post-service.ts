@@ -36,11 +36,11 @@ export default class PostService {
    * @returns {Promise<any>} List with all the Posts
    */
   async find(data: any): Promise<any> {
-    const { query } = data;
-    BadRequest.assert(query, 'No query given');
+    BadRequest.assert(data, 'No query given');
+    BadRequest.assert(data.query, 'No query given');
 
-    const posts = await this.postStore.find(query);
-    NotFound.assert(posts, `No Posts found with query ${query}`);
+    const posts = await this.postStore.find(data.query);
+    NotFound.assert(posts, `No Posts found with query ${data.query}`);
 
     return posts;
   }

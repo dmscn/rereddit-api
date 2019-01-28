@@ -40,14 +40,6 @@ export default class PostMock {
   }
 }
 
-export let mockDatabase = [
-  new PostMock({ _id: '1' }),
-  new PostMock({ _id: '2' }),
-  new PostMock({ _id: '3' }),
-  new PostMock({ _id: '4' }),
-  new PostMock({ _id: '5' })
-];
-
 export class PostStoreMock {
   store: Array<PostMock>;
 
@@ -55,11 +47,32 @@ export class PostStoreMock {
     this.store = store;
   }
 
-  find = jest.fn(async (offset = 0, limit = 20) => this.store.splice(offset, limit));
-  findOneById = jest.fn(async (id: string) => this.store.find(mock => mock._id === id));
-  create = jest.fn(async (post: PostMock) => post);
-  update = jest.fn(async (post: PostMock) => post);
-  reply = jest.fn(async (reply: PostMock) => reply);
+  async findAll(offset?: number, limit?: number) {
+    return this.store.slice(offset || 0, limit || 20);
+  }
+
+  async find(query: any) {
+    return this.store.filter(mock => mock.content === query.content);
+  }
+
+  async findOneById(id: string) {
+    return this.store.find(mock => mock._id === id);
+  }
+
+  async create(post: PostMock) {
+    return post;
+  }
+
+  async update(post: PostMock) {
+    return post;
+  }
+
+  async reply(reply: PostMock) {
+    return reply;
+  }
+
   // @ts-ignore
-  remove = jest.fn(async (id: string) => null);
+  async remove(id: string) {
+    return null;
+  }
 }

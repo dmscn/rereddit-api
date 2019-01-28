@@ -8,11 +8,11 @@ export default class PostStore {
     this.logger = logger;
   }
 
-  async findAll(offset = 0, limit = 20) {
+  async findAll(offset?: number, limit?: number) {
     this.logger.debug('Getting all the posts');
     return await PostSchema.find({ parent: null })
-      .skip(offset)
-      .limit(limit)
+      .skip(offset || 0)
+      .limit(limit || 20)
       .sort({
         date: 'asc'
       });
