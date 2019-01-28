@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "npm run build && node dist/bin/www.ts",
+    "start": "yarn build && node dist/bin/www.ts",
     "build": "tsc",
     "dev": "nodemon",
     "prod": "yarn build && yarn start",
