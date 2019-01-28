@@ -6,7 +6,7 @@ export default class PostMock {
   content?: string;
   author?: UserMock;
   date?: Date;
-  parent?: PostMock;
+  parent?: string;
   replies?: [PostMock];
 
   constructor(data?: {
@@ -15,7 +15,7 @@ export default class PostMock {
     content?: string;
     author?: UserMock;
     date?: Date;
-    parent?: PostMock;
+    parent?: string;
     replies?: [PostMock];
   }) {
     this._id = data

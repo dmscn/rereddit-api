@@ -90,9 +90,8 @@ export default class PostService {
    * @returns {Promise<any>} The parent Post with it's replies
    */
   async reply(data: any): Promise<any> {
-    BadRequest.assert(data, 'Reply Inexistent');
-    BadRequest.assert(data.parent, 'No post reference specified');
-    BadRequest.assert(data.content, 'No content');
+    BadRequest.assert(data.parent, 'No parent post reference given');
+    BadRequest.assert(data.content, 'No content given');
 
     const post = await this.postStore.reply(data);
     NotFound.assert(post, `No parent Post found with id ${data.parent}`);

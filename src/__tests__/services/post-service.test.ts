@@ -180,7 +180,22 @@ describe('PostService', () => {
     beforeEach(() => {
       jest.spyOn(postStoreMock, 'reply').mockClear();
     });
-    it('returns BadRequest', async () => {});
-    it('reply a Post', async () => {});
+    it('returns BadRequest', async () => {
+      let error = await throws(service.reply({ content: 'content' }));
+      expect(error.message).toMatch(/No parent post reference given/);
+
+      error = await throws(service.reply({ parent: '1' }));
+      expect(error.message).toMatch(/No content given/);
+
+      expect(postStoreMock.reply).not.toHaveBeenCalled();
+    });
+    it('reply a Post', async () => {
+      let postMock = new PostMock();
+      postMock.parent = '1';
+      postMock.content = 'reply content';
+      expect(await service.reply(postMock)).toEqual(postMock);
+
+      expect(postStoreMock.reply).toHaveBeenCalledTimes(1);
+    });
   });
 });
