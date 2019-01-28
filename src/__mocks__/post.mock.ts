@@ -65,6 +65,7 @@ export class PostStoreMock {
 
   // @ts-ignore
   async update(id: string, post: PostMock) {
+    if (!(await this.findOneById(id))) return null;
     return post;
   }
 

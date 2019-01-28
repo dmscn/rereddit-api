@@ -52,7 +52,7 @@ export default class PostService {
   async findOneById(id: string): Promise<any> {
     assertId(id);
 
-    let post = await this.postStore.findOneById(id);
+    const post = await this.postStore.findOneById(id);
     NotFound.assert(post || null, `No Post found with id ${id}`);
 
     return post;
@@ -80,7 +80,7 @@ export default class PostService {
     BadRequest.assert(data, 'No Post data given');
 
     const post = await this.postStore.update(id, data);
-    NotFound.assert(post, `No post found with id ${id}`);
+    NotFound.assert(post || null, `No Post found with id ${id}`);
 
     return post;
   }

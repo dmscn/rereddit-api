@@ -36,7 +36,16 @@ export default class PostStore {
 
   async update(id: string, data: any) {
     this.logger.debug(`Updating post with id ${id}`);
-    return await PostSchema.findByIdAndUpdate(id, data, { new: true });
+    let post = await this.findOneById(id);
+
+    if (!post) return null;
+
+    post = {
+      ...post,
+      ...data
+    };
+
+    return await post.save();
   }
 
   async remove(id: string) {

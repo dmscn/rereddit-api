@@ -23,7 +23,7 @@ describe('PostService', () => {
     });
     it('returns all Posts', async () => {
       expect(await service.findAll()).toEqual(postStoreMock.store);
-      expect(postStoreMock.findAll).toBeCalledTimes(1);
+      expect(postStoreMock.findAll).toHaveBeenCalledTimes(1);
     });
     it('returns Posts with offset and limit', async () => {
       expect(await service.findAll(0, 1)).toEqual([postStoreMock.store[0]]);
@@ -35,7 +35,7 @@ describe('PostService', () => {
       expect(await service.findAll(0)).toEqual(postStoreMock.store);
       expect(await service.findAll(undefined, 4)).toEqual(postStoreMock.store.slice(0, 4));
       expect(await service.findAll(0, 20)).toEqual(postStoreMock.store);
-      expect(postStoreMock.findAll).toBeCalledTimes(6);
+      expect(postStoreMock.findAll).toHaveBeenCalledTimes(6);
     });
   });
 
@@ -50,18 +50,18 @@ describe('PostService', () => {
     it('returns BadRequest', async () => {
       let { message } = await throws(service.find(undefined));
       expect(message).toMatch(/No query given/);
-      expect(postStoreMock.find).not.toBeCalled();
+      expect(postStoreMock.find).not.toHaveBeenCalled();
     });
     it('returns NotFound', async () => {
       const { message } = await throws(service.find({ content: 'non-existent' }));
       expect(message).toMatch(/found/);
-      expect(postStoreMock.find).toBeCalledTimes(1);
+      expect(postStoreMock.find).toHaveBeenCalledTimes(1);
     });
     it('find Post(s) by query', async () => {
       expect(await service.find({ content: 'post content' })).toEqual([
         postStoreMock.store[0]
       ]);
-      expect(postStoreMock.find).toBeCalledTimes(1);
+      expect(postStoreMock.find).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -76,35 +76,91 @@ describe('PostService', () => {
     it('returns BadRequest', async () => {
       const { message } = await throws(service.findOneById(undefined));
       expect(message).toMatch(/No id given/);
-      expect(postStoreMock.findOneById).not.toBeCalled();
+      expect(postStoreMock.findOneById).not.toHaveBeenCalled();
     });
     it('returns NotFound', async () => {
       const { message } = await throws(service.findOneById('0'));
       expect(message).toMatch(/found/);
-      expect(postStoreMock.findOneById).toBeCalledTimes(1);
+      expect(postStoreMock.findOneById).toHaveBeenCalledTimes(1);
     });
     it('find a Post by id', async () => {
       expect(await service.findOneById('1')).toEqual(postStoreMock.store[0]);
-      expect(postStoreMock.findOneById).toBeCalledTimes(1);
+      expect(postStoreMock.findOneById).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('create', () => {
-    it('is forbidden', () => {});
-    it('returns BadRequest', async () => {});
-    it('creates a new Post', async () => {});
+    beforeAll(() => {
+      jest.spyOn(postStoreMock, 'create');
+    });
+
+    beforeEach(() => {
+      jest.spyOn(postStoreMock, 'create').mockClear();
+    });
+    it('returns BadRequest', async () => {
+      const postMock = new PostMock();
+
+      postMock.title = undefined;
+      let error = await throws(service.create(postMock));
+      expect(error.message).toMatch(/No title given/);
+
+      postMock.title = 'title';
+      postMock.content = undefined;
+      error = await throws(service.create(postMock));
+      expect(error.message).toMatch(/No content given/);
+
+      postMock.content = 'content';
+      postMock.author = undefined;
+      error = await throws(service.create(postMock));
+      expect(error.message).toMatch(/No author given/);
+
+      expect(postStoreMock.create).not.toHaveBeenCalled();
+    });
+    it('creates a new Post', async () => {
+      const postMock = new PostMock();
+      expect(await service.create(postMock)).toEqual(postMock);
+      expect(postStoreMock.create).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('update', () => {
-    it('is forbidden', async () => {});
-    it('returns BadRequest', async () => {});
-    it('returns NotFound ', async () => {
-      // expect(await throws()).toMatch(/not found/);
+    beforeAll(() => {
+      jest.spyOn(postStoreMock, 'update');
     });
-    it('update Post', async () => {});
+
+    beforeEach(() => {
+      jest.spyOn(postStoreMock, 'update').mockClear();
+    });
+    it('returns BadRequest', async () => {
+      let error = await throws(service.update(undefined, { content: 'content' }));
+      expect(error.message).toMatch(/No id given/);
+
+      error = await throws(service.update('1', undefined));
+      expect(error.message).toMatch(/No Post data given/);
+
+      expect(postStoreMock.update).not.toHaveBeenCalled();
+    });
+    it('returns NotFound ', async () => {
+      const { message } = await throws(service.update('0', { content: 'content' }));
+      expect(message).toMatch(/found/);
+      expect(postStoreMock.update).toHaveBeenCalledTimes(1);
+    });
+    it('update Post', async () => {
+      expect(await service.update('1', { content: 'changed' })).toEqual({
+        content: 'changed'
+      });
+      expect(postStoreMock.update).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('remove', () => {
+    beforeAll(() => {
+      jest.spyOn(postStoreMock, 'remove');
+    });
+
+    beforeEach(() => {
+      jest.spyOn(postStoreMock, 'remove').mockClear();
+    });
     it('is forbidden', () => {});
     it('returns BadRequest', async () => {});
     it('returns NotFound', async () => {
@@ -114,6 +170,13 @@ describe('PostService', () => {
   });
 
   describe('reply', () => {
+    beforeAll(() => {
+      jest.spyOn(postStoreMock, 'reply');
+    });
+
+    beforeEach(() => {
+      jest.spyOn(postStoreMock, 'reply').mockClear();
+    });
     it('is forbidden', async () => {});
     it('returns BadRequest', async () => {});
     it('reply a Post', async () => {});
