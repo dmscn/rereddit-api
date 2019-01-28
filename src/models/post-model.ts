@@ -1,23 +1,21 @@
 import mongoose, { Schema } from 'mongoose';
-// eslint-disable-next-line no-unused-vars
 import { User } from './user-model';
 
 mongoose.Promise = global.Promise;
 
 export type Post = {
-  _id: String;
-  title?: String;
-  content: String;
+  _id: string;
+  title?: string;
+  content: string;
   author: User;
-  date: Date;
+  date?: Date;
   parent?: Post;
   replies?: [Post];
 };
 
 export const PostSchema = new Schema({
   title: {
-    type: String,
-    required: true
+    type: String
   },
   content: {
     type: String,

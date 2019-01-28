@@ -1,4 +1,4 @@
-import { NotFound, BadRequest, Forbidden } from 'fejl';
+import { NotFound, BadRequest, NotAuthenticated } from 'fejl';
 // eslint-disable-next-line no-unused-vars
 import UserStore from '../stores/user-store';
 // eslint-disable-next-line no-unused-vars
@@ -20,11 +20,11 @@ export default class UserService {
     BadRequest.assert(password, 'No password given');
 
     try {
-      let user = (await this.find({ email }))[0];
-      BadRequest.assert(user, `${email} not registered.`);
+      let user = (await this.find({ query: { email } }))[0];
+      NotFound.assert(user, `${email} not registered.`);
 
       // @ts-ignore
-      Forbidden.assert(validatePassword(password, user.password), 'Invalid Password');
+      NotAuthenticated.assert(validatePassword(password, user.password), 'Invalid Password');
       user.password = undefined;
 
       const token = await generateToken(user);
@@ -46,7 +46,7 @@ export default class UserService {
   async register(body: User) {
     const { firstName, lastName, email, password } = body;
 
-    const usersWithThisEmail = await this.find({ email });
+    const usersWithThisEmail = await this.find({ data: { email } });
     BadRequest.assert(!usersWithThisEmail, `${email} is already registered`);
 
     BadRequest.assert(firstName, 'No first name given');
@@ -62,8 +62,9 @@ export default class UserService {
     });
   }
 
-  async find(query?: Object) {
-    const user = await this.userStore.find(query);
+  async find(data: any) {
+    BadRequest.assert(data.query, 'No query given');
+    const user = await this.userStore.find(data.query);
     NotFound.assert(user, 'User not found');
     return user;
   }
@@ -75,14 +76,14 @@ export default class UserService {
     return user;
   }
 
-  async remove(id: string) {
-    assertId(id);
-    return this.userStore.remove(id);
-  }
-
   async update(id: string, user: User) {
     assertId(id);
     BadRequest.assert(user, 'No user given');
     return await this.userStore.update(id, user);
+  }
+
+  async remove(id: string) {
+    assertId(id);
+    return this.userStore.remove(id);
   }
 }

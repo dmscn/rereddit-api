@@ -18,10 +18,20 @@ const api = (postService: PostService) => ({
    * @apiParam {Number} offset Specify where the list start
    * @apiParam {Number} limit Specify where the list ends
    */
-  find: async (ctx: Context) => {
+  findAll: async (ctx: Context) => {
     return ctx.ok(
       await postService.find({ offset: ctx.params.offset, limit: ctx.params.limit })
     );
+  },
+
+  /**
+   * @api {GET} /post/search Search for Posts
+   * @apiGroup PostGroup
+   * @apiParam {Number} offset Specify where the list start
+   * @apiParam {Number} limit Specify where the list ends
+   */
+  find: async (ctx: Context) => {
+    return ctx.ok(await postService.find(ctx.request.body));
   },
 
   /**
@@ -78,7 +88,8 @@ const api = (postService: PostService) => ({
 export default createController(api)
   .prefix('/posts')
   .get('', 'find')
-  .get('/:offset/:limit', 'find')
+  .get('/:offset/:limit', 'findAll')
+  .post('/search', 'find')
   .get('/:id', 'findOneById')
   .post('', 'create')
   .put('/:id', 'update')

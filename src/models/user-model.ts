@@ -3,14 +3,14 @@ import mongoose, { Schema } from 'mongoose';
 mongoose.Promise = global.Promise;
 
 export type User = {
-  _id?: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  password?: string;
   points?: number;
   avatar?: string;
-  date?: Date;
+  birth?: Date;
+  createdAt?: Date;
 };
 
 export const UserSchema = Schema({
@@ -32,6 +32,9 @@ export const UserSchema = Schema({
     type: String,
     required: true
   },
+  birth: {
+    type: Date
+  },
   points: {
     type: Number,
     required: false,
@@ -39,6 +42,10 @@ export const UserSchema = Schema({
   },
   avatar: {
     type: String
+  },
+  created_at: {
+    type: Date,
+    default: new Date()
   }
 });
 
