@@ -2,5 +2,12 @@
   "ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
   "watch": ["src"],
   "exec": "ts-node src/bin/www.ts",
-  "ext": "ts"
+  "ext": "ts",
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": "8626",
+    "DATABASE": "mongodb+srv: //dmscn:PeV0jDpdcWtsfzeX@forum-xlx1l.mongodb.net/test?retryWrites=true",
+    "AUTH_SECRET_KEY": "8decd2f78f15d0ccf7d19244c6c22323",
+    "SECRET_KEY": "6c594723ced3379657f2be73e2313cd8"
+  }
 }

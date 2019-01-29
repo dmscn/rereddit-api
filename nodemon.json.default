@@ -1,0 +1,13 @@
+{
+  "ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
+  "watch": ["src"],
+  "exec": "ts-node src/bin/www.ts",
+  "ext": "ts",
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": "3000",
+    "DATABASE": "mongodb://localhost/chan",
+    "AUTH_SECRET_KEY": "auth-secret-key",
+    "SECRET_KEY": "secret-key"
+  }
+}
