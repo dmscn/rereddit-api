@@ -1,0 +1,8 @@
+build-essential
+curl
+locales
+make
+ntp
+software-properties-common
+tzdata
+wget
