@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/dmscn/MKRN/badge.svg?branch=master)](https://coveralls.io/github/dmscn/MKRN?branch=master)
 [![dependencies Status](https://david-dm.org/dmscn/MKRN/status.svg)](https://david-dm.org/dmscn/MKRN)
 [![Known Vulnerabilities](https://snyk.io/test/github/dmscn/MKRN/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dmscn/MKRN?targetFile=package.json)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
 ## Installation
 ```
