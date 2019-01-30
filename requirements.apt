@@ -6,3 +6,4 @@ ntp
 software-properties-common
 tzdata
 wget
+yarn
