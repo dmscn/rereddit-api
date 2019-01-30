@@ -54,6 +54,41 @@
 					"response": []
 				},
 				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "conteudo de reply",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/posts/search",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"posts",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create",
 					"request": {
 						"method": "POST",
@@ -224,29 +259,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "Show Single",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{forum_api}}/user/5c4a2a954c1fd00e8e101fd4",
-							"host": [
-								"{{forum_api}}"
-							],
-							"path": [
-								"user",
-								"5c4a2a954c1fd00e8e101fd4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -261,25 +274,131 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "name",
-									"value": "Leonardo",
+									"key": "email",
+									"value": "teste@teste.com",
 									"type": "text"
 								},
 								{
-									"key": "email",
-									"value": "ldamasceno.dev@gmail.com",
+									"key": "password",
+									"value": "123456",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{forum_api}}/user/",
+							"raw": "{{forum_api}}/user/login",
 							"host": [
 								"{{forum_api}}"
 							],
 							"path": [
 								"user",
-								""
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstName",
+									"value": "Teste",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Tester",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "teste@teste.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/register",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "Register a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/logout",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						},
+						"description": "logout user for the session and its JWT's"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Single",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InBvaW50cyI6MCwiY3JlYXRlZF9hdCI6IjIwMTktMDEtMjhUMTI6NDg6NTUuNTA1WiIsIl9pZCI6IjVjNGUxZjM3OTM0MWJiMDQ3N2Y0MWZjMyIsImZpcnN0TmFtZSI6IlRlc3RlIiwibGFzdE5hbWUiOiJUZXN0ZXIiLCJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU0ODY3OTczOSwiZXhwIjoxNTQ4NzY2MTM5fQ.fBYxB_uTJXw6FlnzW5sx61ZQvgyFoR3aMGlqLG_YkLY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{forum_api}}/user/5c4e1f379341bb0477f41fc3",
+							"host": [
+								"{{forum_api}}"
+							],
+							"path": [
+								"user",
+								"5c4e1f379341bb0477f41fc3"
 							]
 						}
 					},
