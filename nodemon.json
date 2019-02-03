@@ -6,7 +6,7 @@
   "env": {
     "NODE_ENV": "development",
     "PORT": "8626",
-    "DATABASE": "mongodb+srv: //dmscn:PeV0jDpdcWtsfzeX@forum-xlx1l.mongodb.net/test?retryWrites=true",
+    "DATABASE": "mongodb://dmscn:PeV0jDpdcWtsfzeX@forum-shard-00-00-xlx1l.mongodb.net:27017,forum-shard-00-01-xlx1l.mongodb.net:27017,forum-shard-00-02-xlx1l.mongodb.net:27017/test?ssl=true&replicaSet=forum-shard-0&authSource=admin&retryWrites=true",
     "AUTH_SECRET_KEY": "8decd2f78f15d0ccf7d19244c6c22323",
     "SECRET_KEY": "6c594723ced3379657f2be73e2313cd8"
   }
