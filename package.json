@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "yarn build && node -r dotenv/config dist/bin/www.ts",
+    "start": "node -r dotenv/config dist/bin/www.js",
     "build": "tsc",
     "dev": "nodemon",
     "prod": "yarn build && yarn start",
