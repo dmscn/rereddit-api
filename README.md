@@ -1,4 +1,5 @@
-# Forum API applying MKRN Stack 
+# Forum API applying MKRN Stack
+
 ### (MongoDB, Koa2, React, Node.JS)
 
 [![Build Status](https://travis-ci.org/dmscn/MKRN.svg?branch=master)](https://travis-ci.org/dmscn/MKRN)
@@ -8,52 +9,43 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
 ## Installation
-```
-yarn install
-```
 
-to install the dependecies.
+Before anything you must have `make` installed.
+
+```
+$ sudo apt install make
+```
 
 ## Usage
 
 ```
-yarn build
+$ make setup
 ```
-to build the dist folder with the code.
+
+will setup the project, install the images and start the project.
 
 ```
-yarn start
+$ make start
 ```
-to start the project.
+
+starts the container.
 
 ```
-yarn dev
+$ make stop
 ```
-to run live in dev mode.
 
-## Testing
-```
-yarn test
-```
-to run all the tests.
+stops the container.
 
 ```
-yarn test:live
+$ make exec
 ```
-to run tests live.
 
-```
-yarn test:clear
-```
-to clear jest cache.
-
-```
-yarn coverage
-```
-to check test coverage.
+enters the container using bash.
 
 ## Documenting
+
 ```
 yarn document
 ```
-to update the API documentation at `doc/` 
+
+to update the API documentation at `doc/`
