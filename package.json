@@ -6,6 +6,7 @@
   "author": "Leonardo Damasceno <ldamasceno.dev@gmail.com>",
   "license": "MIT",
   "private": false,
+  "homepage": "https://dmscn.github.io/forum-api",
   "scripts": {
     "start": "node -r dotenv/config dist/bin/www.js",
     "build": "tsc",
@@ -16,7 +17,9 @@
     "test:clear": "jest --clearCache",
     "coverage": "jest --coverage",
     "document": "apidoc -i src/routes -o doc/",
-    "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src/**/*.ts"
+    "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src/**/*.ts",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
@@ -73,6 +76,7 @@
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
+    "gh-pages": "^2.0.1",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
