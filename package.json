@@ -18,8 +18,8 @@
     "coverage": "jest --coverage",
     "document": "apidoc -i src/routes -o doc/",
     "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src/**/*.ts",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "yarn document",
+    "deploy": "gh-pages -d doc"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
