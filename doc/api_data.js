@@ -1,6 +1,46 @@
 define({
   api: [
     {
+      type: 'GET',
+      url: '/logout',
+      title: '',
+      group: 'AuthGroup',
+      version: '0.0.0',
+      filename: 'src/routes/user-api.ts',
+      groupTitle: 'AuthGroup',
+      name: 'GetLogout'
+    },
+    {
+      type: 'POST',
+      url: '/login',
+      title: 'Sign in user',
+      group: 'AuthGroup',
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: 'Parameter',
+              type: 'String',
+              optional: false,
+              field: 'email',
+              description: '<p>Email</p>'
+            },
+            {
+              group: 'Parameter',
+              type: 'String',
+              optional: false,
+              field: 'Password',
+              description: '<p>Password</p>'
+            }
+          ]
+        }
+      },
+      version: '0.0.0',
+      filename: 'src/routes/user-api.ts',
+      groupTitle: 'AuthGroup',
+      name: 'PostLogin'
+    },
+    {
       type: 'DELETE',
       url: '/post/:id',
       title: 'Remove',
@@ -81,6 +121,38 @@ define({
       groupDescription:
         '<p>Post are tree structured. A root Post has a title and does not have a <code>parent</code> attribute. Replies are Post as well and are the chidlren of a root Post. Replies have a <code>parent</code> attribute.</p>',
       name: 'GetPostOffsetLimit'
+    },
+    {
+      type: 'GET',
+      url: '/post/search',
+      title: 'Search for Posts',
+      group: 'PostGroup',
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: 'Parameter',
+              type: 'Number',
+              optional: false,
+              field: 'offset',
+              description: '<p>Specify where the list start</p>'
+            },
+            {
+              group: 'Parameter',
+              type: 'Number',
+              optional: false,
+              field: 'limit',
+              description: '<p>Specify where the list ends</p>'
+            }
+          ]
+        }
+      },
+      version: '0.0.0',
+      filename: 'src/routes/post-api.ts',
+      groupTitle: 'Post endpoints',
+      groupDescription:
+        '<p>Post are tree structured. A root Post has a title and does not have a <code>parent</code> attribute. Replies are Post as well and are the chidlren of a root Post. Replies have a <code>parent</code> attribute.</p>',
+      name: 'GetPostSearch'
     },
     {
       type: 'PATCH',
@@ -193,6 +265,52 @@ define({
       name: 'PutPostId'
     },
     {
+      type: 'DELETE',
+      url: '/user',
+      title: 'Remove',
+      group: 'UserGroup',
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: 'Parameter',
+              type: 'String',
+              optional: false,
+              field: 'id',
+              description: '<p>Id of the User to remove</p>'
+            }
+          ]
+        }
+      },
+      version: '0.0.0',
+      filename: 'src/routes/user-api.ts',
+      groupTitle: 'User enpoints',
+      name: 'DeleteUser'
+    },
+    {
+      type: 'GET',
+      url: '/user/',
+      title: 'Get Users',
+      group: 'UserGroup',
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: 'Parameter',
+              type: 'String',
+              optional: true,
+              field: 'query',
+              description: '<p>Query to find the users</p>'
+            }
+          ]
+        }
+      },
+      version: '0.0.0',
+      filename: 'src/routes/user-api.ts',
+      groupTitle: 'User enpoints',
+      name: 'GetUser'
+    },
+    {
       type: 'GET',
       url: '/user/:id',
       title: 'Get Single',
@@ -228,21 +346,28 @@ define({
               type: 'String',
               optional: false,
               field: 'nome',
-              description: '<p>User first name</p>'
+              description: '<p>First Name</p>'
             },
             {
               group: 'Parameter',
               type: 'String',
               optional: false,
               field: 'email',
-              description: '<p>User email</p>'
+              description: '<p>Email</p>'
             },
             {
               group: 'Parameter',
               type: 'String',
-              optional: false,
+              optional: true,
               field: 'avatar',
               description: '<p>Image Base64 or URL</p>'
+            },
+            {
+              group: 'Parameter',
+              type: 'Number',
+              optional: true,
+              field: 'points',
+              description: '<p>Points</p>'
             }
           ]
         }
@@ -253,7 +378,7 @@ define({
       name: 'PostUser'
     },
     {
-      type: 'POST',
+      type: 'PUT',
       url: '/user',
       title: 'Update',
       group: 'UserGroup',
@@ -264,15 +389,15 @@ define({
               group: 'Parameter',
               type: 'String',
               optional: true,
-              field: 'nome',
-              description: '<p>User first name</p>'
+              field: 'name',
+              description: '<p>First Name</p>'
             },
             {
               group: 'Parameter',
               type: 'String',
               optional: true,
               field: 'email',
-              description: '<p>User email</p>'
+              description: '<p>Email</p>'
             },
             {
               group: 'Parameter',
@@ -287,30 +412,7 @@ define({
       version: '0.0.0',
       filename: 'src/routes/user-api.ts',
       groupTitle: 'User enpoints',
-      name: 'PostUser'
-    },
-    {
-      type: 'POST',
-      url: '/user',
-      title: 'Remove',
-      group: 'UserGroup',
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: 'Parameter',
-              type: 'String',
-              optional: false,
-              field: 'id',
-              description: '<p>Id of the User to remove</p>'
-            }
-          ]
-        }
-      },
-      version: '0.0.0',
-      filename: 'src/routes/user-api.ts',
-      groupTitle: 'User enpoints',
-      name: 'PostUser'
+      name: 'PutUser'
     }
   ]
 });
