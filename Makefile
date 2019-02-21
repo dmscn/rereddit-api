@@ -1,10 +1,9 @@
-APPDIR=/usr
+APPDIR=/usr/src/forum-api
 PWD=$(shell pwd)
-PORT=8019
+PORT=3000
 CONTAINER_NAME=forum-api
 DOCKER_CONTEXT=.
 DOCKER_STAGE ?= development
-version := patch
 
 welcome:
 	@printf "\033[33m  _____                               _    ____ ___  			\n"
@@ -30,7 +29,7 @@ stop:
 	@docker stop ${CONTAINER_NAME}
 
 exec: 
-	@docker run -it dmscn/${CONTAINER_NAME} /bin/bash
+	@docker run -it dmscn/${CONTAINER_NAME} bash
 
 logs: 
 	@docker logs $(docker ps -aqf "name=dmscn/${CONTAINER_NAME}")
