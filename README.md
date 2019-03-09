@@ -1,4 +1,4 @@
-# Forum API applying MKRN Stack
+# ReRedit API
 
 ### (MongoDB, Koa2, React, Node.JS)
 
