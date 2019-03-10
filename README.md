@@ -1,4 +1,4 @@
-# ReRedit API
+# ReReddit API
 
 ### (MongoDB, Koa2, React, Node.JS)
 
