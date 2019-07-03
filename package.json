@@ -19,7 +19,9 @@
     "document": "apidoc -i src/routes -o doc/",
     "lint": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\" && eslint --fix src/**/*.ts",
     "predeploy": "yarn document",
-    "deploy": "gh-pages -d doc"
+    "deploy": "gh-pages -d doc",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",
@@ -49,7 +51,8 @@
     "palin": "^2.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "ts-jest": "^23.10.5"
+    "ts-jest": "^23.10.5",
+    "snyk": "^1.189.0"
   },
   "husky": {
     "hooks": {
@@ -86,5 +89,6 @@
     "supertest": "^3.4.2",
     "ts-node": "^8.0.1",
     "typescript": "^3.2.4"
-  }
+  },
+  "snyk": true
 }
