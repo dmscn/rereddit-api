@@ -47,7 +47,7 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.3.9",
     "palin": "^2.2.0",
-    "passport": "^0.4.0",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "ts-jest": "^23.10.5"
   },
